@@ -1,45 +1,66 @@
 const {mysqlConnection} = require('../comon/connect.js');
+const {getID} = require('../helpers/util')
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
 const {customerModle} = require('../modles/customer.js');
 
 
 class CustomerControllerClass {
 
-
     getList (req, res){
         customerModle.getList(req, (err, results) => {
-            return res.send(results)
+            if(err){
+                return ResponseFail(res, "unsuccesful")
+            }
+            return ResponseSuccess(res, "successful", results)
         })
     }
 
     create (req, res){
         customerModle.create(req, (err, data) => {
-            if (err) throw err;
-            customerModle.getOne(req, data.insertId, (err, result) => {
+            if(err){
+                return ResponseFail(res, "unsuccesful")
+            }
+            const input = getID(data.insertId, req.auth_user.company_id);
+            return customerModle.getOne(input, (err, result) => {
                 if (err) throw err 
-                return res.send(result[0])
+                return ResponseSuccess(res, "", result[0])
             })
         })
     } 
 
     getOne (req, res) {
-        customerModle.getOne(req, null, (err, data) => {
-            return res.send(data[0])
+        const input = getID(req.params.id, req.auth_user.company_id);
+        customerModle.getOne(input, (err, result) => {
+            if(err){
+                return ResponseFail(res, "unsuccesful")
+            }
+            if(result.length > 0){
+                return ResponseSuccess(res, "successful", result[0])
+            }
+            return ResponseFail(res, "unsuccessful")
         })
     }
 
     delete (req, res) {
-        customerModle.delete(req, (err, data) => {
-            if (err) throw err;
-            return res.send(data)
+        const input = getID(req.params.id, req.auth_user.company_id);
+        customerModle.delete(input, (err, data) => {
+            if(err){
+                return ResponseFail(res, "unsuccesful")
+            }
+            return ResponseSuccess(res, "successful", data)
         })
     }
 
     update (req, res)  {
-        customerModle.update(req, (err, result) => {
-            if (err) throw err 
-            customerModle.getOne(req, null, (err, data) => {
-                return res.send(data[0])
+        const input = getID(req.params.id, req.auth_user.company_id);
+        input.body = req.body;
+        customerModle.update(input, (err, data) => {
+            if(err){
+                return ResponseFail(res, "unsuccesful")
+            }
+            return customerModle.getOne(input, (err, result) => {
+                if (err) throw err 
+                return ResponseSuccess(res, "", result[0])
             })
         })
     }

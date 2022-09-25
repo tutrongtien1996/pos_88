@@ -10,7 +10,7 @@ class customer {
     updated_at
 
     getList(req, callback){
-        let query = "SELECT * FROM customers";
+        let query = `SELECT * FROM customers WHERE company_id = '${req.auth_user.company_id}'`;
         if (req.query.page) {
             query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
         }
@@ -20,35 +20,25 @@ class customer {
     create(req, callback){
         let customer = req.body;
         if(customer && customer.name){
-            let query = `INSERT INTO customers (name, phone_number, address)
-            VALUES ('${customer.name}', '${customer.phone_number}', '${customer.address}')`;
+            let query = `INSERT INTO customers (name, phone_number, address, company_id)
+            VALUES ('${customer.name}', '${customer.phone_number}', '${customer.address}', '${req.auth_user.company_id}')`;
             mysqlConnection.query(query, callback)
 
         }
     }
 
-    getOne (req, id, callback) {
-        if(id){
-            let query = `SELECT name, company_id, address, phone_number, created_at, updated_at FROM customers WHERE id = '${id}' `
-            mysqlConnection.query(query, callback)
-        }
-        if(req.params){
-            let query = `SELECT name, company_id, address, phone_number, created_at, updated_at FROM customers WHERE id = '${req.params.id}' `
-            mysqlConnection.query(query, callback)  
-        }
-        
+    getOne (input, callback) {
+        let query = `SELECT id, name, company_id, address, phone_number, created_at, updated_at FROM customers WHERE id = '${input.id}' AND company_id = '${input.company_id}' `
+        mysqlConnection.query(query, callback)
     }
 
-    delete (req, callback){
-        const {id} = req.params;
-        const query = `DELETE FROM customers WHERE id = ${id}`;
+    delete (input, callback){
+        const query = `DELETE FROM customers WHERE id = ${input.id} AND company_id = '${input.company_id}'`;
         mysqlConnection.query(query, callback)
     }
     
-    update (req, callback){
-        const {id} = req.params;
-        const customerUpdate = (req.body)
-        const query = `UPDATE customers SET name = '${customerUpdate.name}', phone_number = '${customerUpdate.phone_number}', address = '${customerUpdate.address}' WHERE id = ${id}`;
+    update (input, callback){
+        const query = `UPDATE customers SET name = '${input.body.name}', phone_number = '${input.body.phone_number}', address = '${input.body.address}' WHERE id = ${input.id} AND company_id = '${input.company_id}'`;
         mysqlConnection.query(query, callback)
     }
 }

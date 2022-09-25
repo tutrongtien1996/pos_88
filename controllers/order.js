@@ -1,71 +1,92 @@
 const {mysqlConnection} = require('../comon/connect.js');
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
+const {getID, setOrder} = require('../helpers/util')
 const {orderModle} = require('../modles/order')
 
 
 class OrderControllerClass {
     getList (req, res){
         orderModle.getList(req, (err, results) => {
-        return ResponseSuccess(res, "", results)
-    })  
+            if(err) throw err;
+            if(results.length > 0){
+                return ResponseSuccess(res, "", results)
+            }
+            return ResponseFail(res, "unsuccesful")
+        })  
        
     }
     create (req, res){
-        var order = req.body;
-        order.company_id = 3;
-        console.log(order);
+        var order = {
+            body: req.body,
+            company_id: req.auth_user.company_id
+        };
         orderModle.create(order, (err, result) => {
+            if (err) throw err;
+            var orderItems = {
+                product: req.body.items,
+                order_id: result.insertId
+            }
+            return orderModle.createItems(orderItems, (err, data) => {
                 if (err) throw err;
-               orderModle.createItems(order.items, result.insertId, (err, data) => {
-                        if (err) throw err;
-                        return ResponseSuccess(res, "", order)
-                    })
+                const input = getID(orderItems.order_id, req.auth_user.company_id);
+                return orderModle.getOne(input, (err, results) => {
+                    if(err) throw err;
+                    const order = setOrder(results);
+                    return ResponseSuccess(res, "", order)
+                }) 
             })
-        } 
+        })
+    } 
 
     getOne (req, res) {
-        orderModle.getOne(req, (err, result) => {
-            var items = [];
-            result.forEach(item => {
-                items.push({
-                    product_name: item.product_name,
-                    quantity: item.quantity,
-                    price: item.price
-                }); 
-            });
-            var order = {
-                customer_name: result[0].name,
-                total: result[0].total,
-                items: items
+        const input = getID(req.params.id, req.auth_user.company_id);
+        orderModle.getOne(input, (err, results) => {
+            if(err) throw err;
+            if(results.length > 0){
+                const order = setOrder(results);
+                return ResponseSuccess(res, "", order)
             }
-            return ResponseSuccess(res, "", order)
+            return ResponseFail(res, "unsuccesful")
         })
     }
 
     delete (req, res) {
-        orderModle.delete(req, (err, data) => {
+        const input = getID(req.params.id, req.auth_user.company_id);
+        orderModle.delete(input, (err, data) => {
             if (err) throw err;
-            orderModle.deleteOrderItems(req, (err, result) => {
+            orderModle.deleteOrderItems(input, (err, result) => {
             if(err) throw err
             return ResponseSuccess(res, "", result)
-            })     
+            })  
+            return ResponseFail(res, "unsuccesful")    
         })
     }
 
     update (req, res)  {
-        const {id} = req.params;
-        const order = (req.body)
-        orderModle.update(id, order, (err) => {
+        var order = {
+            id: req.params.id,
+            body: req.body,
+            company_id: req.auth_user.company_id
+        };
+        orderModle.update(order, (err, result) => {
             if (err) throw err 
-            orderModle.getOneItems(id, (err, results) => {
+            orderModle.getOneItems(order.id, (err, results) => {
                 if(err) throw err
                 for(var index = 0; index < results.length; index ++){
-                    orderModle.updateItems(order.items[index], results[index].id, (err, data) => {
+                    orderModle.updateItems(order.body.items[index], results[index].id, (err, data) => {
                         if(err) throw err
+                        const input = getID(req.params.id, req.auth_user.company_id);
+                        orderModle.getOne(input, (err, results) => {
+                            if(err) throw err;
+                            if(results.length > 0){
+                                const order = setOrder(results);
+                                return ResponseSuccess(res, "", order)
+                            }
+                            return ResponseFail(res, "unsuccesful")
+                        })
                     })
                 } 
             })
-            return ResponseSuccess(res, "", order)
         })
     }
 }

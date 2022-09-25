@@ -1,4 +1,4 @@
-const { query } = require('express');
+
 const {mysqlConnection} = require('../comon/connect.js');
 
 class order {
@@ -10,7 +10,7 @@ class order {
     updated_at
 
     getList(req, callback){
-        let query = "SELECT * FROM orders";
+        let query = `SELECT * FROM orders WHERE company_id = '${req.auth_user.company_id}'`;
         if (req.query.page) {
             query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
         }
@@ -18,47 +18,57 @@ class order {
     }
 
     create(order, callback){
-        if(order){
+        if(order.body){
             let query = `INSERT INTO orders (company_id, customer_id, total)
-            VALUES ('${order.company_id}', '${order.customer_id}', '${order.total}')`;
+            VALUES ('${order.company_id}', '${order.body.customer_id}', '${order.body.total}')`;
             mysqlConnection.query(query, callback)
         }
     }
-    createItems(orders,insertId, callback){
+    createItems(orderItems, callback){
         var valueInserts = "";
-        orders.forEach(item => {
-            valueInserts += `('${insertId}', '${item.product_name}', '${item.quantity}', ${item.price}),`;
+        orderItems.product.forEach(item => {
+            valueInserts += `('${orderItems.order_id}', '${item.product_id}', '${item.quantity}', ${item.price}),`;
         });
         valueInserts = valueInserts.slice(0, -1);
-        let query = `INSERT INTO order_items (order_id, product_name, quantity, price)
+        let query = `INSERT INTO order_items (order_id, product_id, quantity, price)
             VALUES ${valueInserts}`;
             mysqlConnection.query(query, callback)
     }
 
-    getOne (req, callback) {
-        const {id} = req.params;
-        let query = `SELECT customers.name, order_items.product_name, order_items.quantity, order_items.price, orders.total FROM order_items
+    getOne (input, callback) {
+        let query = `SELECT orders.id, orders.company_id, orders.customer_id, orders.total, orders.created_at, orders.updated_at,
+        companies.name AS company_name, companies.email AS company_email, companies.phone_number AS company_phoneNumber, companies.logo AS company_logo,
+        customers.name AS customer_name, customers.phone_number AS cutomer_phoneNumber, customers.address AS customer_address, 
+        order_items.id AS orderItiems_id, order_items.quantity AS orderItiems_quantity, order_items.price AS orderItiems_price, 
+        products.id AS product_id, products.name AS product_name, products.price AS product_price, products.image AS product_image
+            
+        FROM order_items
         INNER JOIN orders 
         ON orders.id = order_items.order_id
         INNER JOIN customers
         ON orders.customer_id = customers.id
-        WHERE orders.id = ${id}`
+        INNER JOIN companies
+        ON companies.id = orders.company_id
+        LEFT JOIN products
+        ON order_items.product_id = products.id
+        WHERE orders.id = '${input.id}' AND orders.company_id = '${input.company_id}'`
+        console.log(query)
+        mysqlConnection.query(query, callback)
+
+    }
+
+    delete (input, callback){
+        const query = `DELETE FROM orders WHERE id = '${input.id}' AND '${input.company_id}'`;
         mysqlConnection.query(query, callback)
     }
 
-    delete (req, callback){
-        const {id} = req.params;
-        const query = `DELETE FROM orders WHERE id = '${id}'`;
-        mysqlConnection.query(query, callback)
-    }
-    deleteOrderItems (req, callback){
-        const {id} = req.params;
-            const query = `DELETE FROM order_items WHERE order_id = '${id}'`;
+    deleteOrderItems (input, callback){
+            const query = `DELETE FROM order_items WHERE order_id = '${input.id}'`;
             mysqlConnection.query(query, callback)
     }
     
-    update (id, order, callback){
-        let query = `UPDATE orders SET customer_id = '${order.customer_id}', total = '${order.total}' WHERE id = ${id}`;
+    update (order, callback){
+        let query = `UPDATE orders SET customer_id = '${order.body.customer_id}', total = '${order.body.total}' WHERE id = '${order.id}' AND company_id = '${order.company_id}'`;
         mysqlConnection.query(query, callback)
     }
 
@@ -68,7 +78,7 @@ class order {
     }
 
     updateItems (order, id, callback){
-        let query = `UPDATE order_items SET product_name = '${order.product_name}', quantity = '${order.quantity}', price = '${order.price}' WHERE id = ${id}`
+        let query = `UPDATE order_items SET product_id = '${order.product_id}', quantity = '${order.quantity}', price = '${order.price}' WHERE id = ${id}`
         mysqlConnection.query(query, callback)
     }
 }

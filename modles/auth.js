@@ -11,12 +11,12 @@ class userToken {
    }
 
    insertToken(data,token, callback){
-    let query = `INSERT INTO auths (token, user_name) VALUES ('${token}', '${data.user.user_name}')`;
+    let query = `INSERT INTO auths (token, user_id) VALUES ('${token}', '${data.user.id}')`;
      mysqlConnection.query(query, callback)
    }
 
    logout(user, callback){
-    let query = `DELETE FROM auths WHERE user_name = '${user.user_name}' AND token = '${user.token}'`
+    let query = `DELETE FROM auths WHERE token = '${user.token}'`
     mysqlConnection.query(query, callback)
    }
 }

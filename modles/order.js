@@ -1,5 +1,6 @@
 
 const {mysqlConnection} = require('../comon/connect.js');
+const {checkQuery} = require('../helpers/checkQuery.js')
 
 class order {
     id
@@ -10,11 +11,12 @@ class order {
     updated_at
 
     getList(req, callback){
-        let query = `SELECT * FROM orders WHERE company_id = '${req.auth_user.company_id}'`;
-        if (req.query.page) {
-            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
-        }
-        mysqlConnection.query(query, callback)
+        let query =  `SELECT orders.*, companies.name AS company, customers.name AS customer, customers.phone_number FROM orders
+        INNER JOIN companies ON companies.id = orders.company_id
+        LEFT JOIN customers ON customers.id = orders.customer_id
+        WHERE orders.company_id = '${req.auth_user.company_id}'`;
+        
+        mysqlConnection.query( checkQuery.Orders(query, req), callback)
     }
 
     create(order, callback){
@@ -45,7 +47,7 @@ class order {
         FROM order_items
         INNER JOIN orders 
         ON orders.id = order_items.order_id
-        INNER JOIN customers
+        LEFT JOIN customers
         ON orders.customer_id = customers.id
         INNER JOIN companies
         ON companies.id = orders.company_id
@@ -55,6 +57,10 @@ class order {
         console.log(query)
         mysqlConnection.query(query, callback)
 
+    }
+
+    getListItem (req, callback){
+        
     }
 
     delete (input, callback){

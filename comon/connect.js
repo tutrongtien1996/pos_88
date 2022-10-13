@@ -11,6 +11,12 @@ var mysqlConnection = mysql.createConnection({
 
 mysqlConnection.connect(function(err){
     if(err){
+        console.log({
+            host: dotenv.parsed.MYSQL_HOST,
+            user: dotenv.parsed.MYSQL_USER,
+            password: dotenv.parsed.MYSQL_PASSWORD,
+            database: dotenv.parsed.MYSQL_DATABASE
+        })
         console.log(err)
         console.log("ket noi csdl khong thanh cong")
     }

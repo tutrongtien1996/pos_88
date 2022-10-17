@@ -19,3 +19,6 @@ Open your terminal and run this command line to start the server
 ```sh
 npm start
 ```
+
+## API Documentation
+- [Postman](https://documenter.getpostman.com/view/2461417/2s83zmMNbJ)

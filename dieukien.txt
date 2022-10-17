@@ -1,5 +1,0 @@
-loc tat ca cac order tu ngay A den ngay B,
-loc theo ten,
-loc theo sdt,
-tim don hang lon nhat,
-loc order theo san pham, 

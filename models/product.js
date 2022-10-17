@@ -41,6 +41,6 @@ class product {
         mysqlConnection.query(query, callback)
     }
 }
-const productModle = new product()
+const productModel = new product()
 
-module.exports = {productModle}
+module.exports = {productModel}

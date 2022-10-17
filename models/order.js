@@ -88,6 +88,6 @@ class order {
         mysqlConnection.query(query, callback)
     }
 }
-const orderModle = new order()
+const orderModel = new order()
 
-module.exports = {orderModle}
+module.exports = {orderModel}

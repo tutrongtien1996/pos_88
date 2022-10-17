@@ -40,6 +40,6 @@ class customer {
         mysqlConnection.query(query, callback)
     }
 }
-const customerModle = new customer()
+const customerModel = new customer()
 
-module.exports = {customerModle}
+module.exports = {customerModel}

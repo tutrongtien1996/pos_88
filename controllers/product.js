@@ -1,13 +1,12 @@
-const {mysqlConnection} = require('../comon/connect.js');
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
 const {getID} = require('../helpers/util')
-const {productModle} = require('../modles/product')
+const {productModel} = require('../models/product')
 
 
 class ProductControllerClass { 
 
     getList (req, res){
-        productModle.getList(req, (err, results) => {
+        productModel.getList(req, (err, results) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
@@ -16,13 +15,13 @@ class ProductControllerClass {
        
     }
     create (req, res){
-        productModle.create(req, (err, data) => {
+        productModel.create(req, (err, data) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
             const input = getID(data.insertId, req.auth_user.company_id);
             
-            return productModle.getOne(input, (err, result) => {
+            return productModel.getOne(input, (err, result) => {
                 if (err) throw err 
                 return ResponseSuccess(res, "successful", result[0])
             })
@@ -32,7 +31,7 @@ class ProductControllerClass {
 
     getOne (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id)
-        productModle.getOne(input, (err, result) => {
+        productModel.getOne(input, (err, result) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
@@ -42,7 +41,7 @@ class ProductControllerClass {
 
     delete (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id)
-        productModle.delete(input, (err, data) => {
+        productModel.delete(input, (err, data) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
@@ -51,12 +50,12 @@ class ProductControllerClass {
     }
 
     update (req, res)  {
-        productModle.update(req, (err, result) => {
+        productModel.update(req, (err, result) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
             const input = getID(req.params.id, req.auth_user.company_id)
-            productModle.getOne(input, (err, data) => {
+            productModel.getOne(input, (err, data) => {
             return ResponseSuccess(res, "successful", data[0])
             })
         })

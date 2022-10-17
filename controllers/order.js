@@ -1,12 +1,11 @@
-const {mysqlConnection} = require('../comon/connect.js');
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
 const {getID, setOrder} = require('../helpers/util')
-const {orderModle} = require('../modles/order')
+const {orderModel} = require('../models/order')
 
 
 class OrderControllerClass {
     getList (req, res){
-        orderModle.getList(req, (err, results) => {
+        orderModel.getList(req, (err, results) => {
             if(err) throw err;
             if(results.length > 0){
                 return ResponseSuccess(res, "", results)
@@ -20,16 +19,16 @@ class OrderControllerClass {
             body: req.body,
             company_id: req.auth_user.company_id
         };
-        orderModle.create(order, (err, result) => {
+        orderModel.create(order, (err, result) => {
             if (err) throw err;
             var orderItems = {
                 product: req.body.items,
                 order_id: result.insertId
             }
-            return orderModle.createItems(orderItems, (err, data) => {
+            return orderModel.createItems(orderItems, (err, data) => {
                 if (err) throw err;
                 const input = getID(orderItems.order_id, req.auth_user.company_id);
-                return orderModle.getOne(input, (err, results) => {
+                return orderModel.getOne(input, (err, results) => {
                     if(err) throw err;
                     const order = setOrder(results);
                     return ResponseSuccess(res, "", order)
@@ -40,7 +39,7 @@ class OrderControllerClass {
 
     getOne (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id);
-        orderModle.getOne(input, (err, results) => {
+        orderModel.getOne(input, (err, results) => {
             if(err) throw err;
             if(results.length > 0){
                 const order = setOrder(results);
@@ -52,9 +51,9 @@ class OrderControllerClass {
 
     delete (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id);
-        orderModle.delete(input, (err, data) => {
+        orderModel.delete(input, (err, data) => {
             if (err) throw err;
-            orderModle.deleteOrderItems(input, (err, result) => {
+            orderModel.deleteOrderItems(input, (err, result) => {
             if(err) throw err
             return ResponseSuccess(res, "", result)
             })  
@@ -68,15 +67,15 @@ class OrderControllerClass {
             body: req.body,
             company_id: req.auth_user.company_id
         };
-        orderModle.update(order, (err, result) => {
+        orderModel.update(order, (err, result) => {
             if (err) throw err 
-            orderModle.getOneItems(order.id, (err, results) => {
+            orderModel.getOneItems(order.id, (err, results) => {
                 if(err) throw err
                 for(var index = 0; index < results.length; index ++){
-                    orderModle.updateItems(order.body.items[index], results[index].id, (err, data) => {
+                    orderModel.updateItems(order.body.items[index], results[index].id, (err, data) => {
                         if(err) throw err
                         const input = getID(req.params.id, req.auth_user.company_id);
-                        orderModle.getOne(input, (err, results) => {
+                        orderModel.getOne(input, (err, results) => {
                             if(err) throw err;
                             if(results.length > 0){
                                 const order = setOrder(results);

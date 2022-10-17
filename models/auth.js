@@ -26,6 +26,6 @@ class userToken {
       mysqlConnection.query(query, callback)
    }
 }
-const userTokenModle = new userToken()
+const userTokenModel = new userToken()
 
-module.exports = {userTokenModle}
+module.exports = {userTokenModel}

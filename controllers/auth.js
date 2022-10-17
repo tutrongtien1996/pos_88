@@ -1,21 +1,16 @@
 
 
 var http = require('http');
-const md5 = require('md5');
-const {mysqlConnection} = require('../comon/connect.js');
 const { ResponseFail, ResponseSuccess } = require('../helpers/response.js');
-const {userTokenModle} = require('../modles/auth')
+const {userTokenModel} = require('../models/auth')
 const { GenerateStr } = require('../helpers/util.js');
 const { GetBearerToken} = require('../helpers/util.js');
 const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-const myPlaintextPassword = 's0/\/\P4$$w0rD';
-const someOtherPlaintextPassword = 'not_bacon';
 
 
-var userName = "";
 
 class AuthControllerClass {
     
@@ -26,7 +21,7 @@ class AuthControllerClass {
         }
        
         if (dataLogin.user_name && dataLogin.password) {
-            userTokenModle.login(dataLogin, (err, results) => {
+            userTokenModel.login(dataLogin, (err, results) => {
                 if(err) throw (err);
                 bcrypt.compare(dataLogin.password, results[0].password, function(err, result) {
                     if(result){
@@ -44,7 +39,7 @@ class AuthControllerClass {
                             updated_at: results[0].updated_at
                         }
                         //set token trong bang auths
-                        userTokenModle.insertToken(data, (err, results) => {
+                        userTokenModel.insertToken(data, (err, results) => {
                             if(err) throw (err);
                         })
     
@@ -68,7 +63,7 @@ class AuthControllerClass {
             token : GetBearerToken(req),
             user_name: req.body.user_name
         }
-        userTokenModle.logout(user, (err, result) => {
+        userTokenModel.logout(user, (err, result) => {
             if (err) throw err
             return ResponseSuccess(res, "Logout successful")
         })
@@ -80,7 +75,7 @@ class AuthControllerClass {
         bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(user.password, salt, function(err, hash) {
                 user.password = hash;
-                userTokenModle.register(user, (err, result) => {
+                userTokenModel.register(user, (err, result) => {
                     if(err) return ResponseFail(res, "Username already exists", null)
                     var token = GenerateStr(60);
                     let data = {
@@ -96,7 +91,7 @@ class AuthControllerClass {
                         updated_at: user.updated_at
                     }
                     console.log(user.password)
-                    userTokenModle.insertToken(data, (err, results) => {
+                    userTokenModel.insertToken(data, (err, results) => {
                         if(err) throw (err);
                         return ResponseSuccess(res, "Login successful", data)
                     })  

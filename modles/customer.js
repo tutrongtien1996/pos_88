@@ -1,4 +1,5 @@
 const {mysqlConnection} = require('../comon/connect.js');
+const { checkQuery } = require('../helpers/checkQuery.js');
 
 class customer {
     id
@@ -11,10 +12,7 @@ class customer {
 
     getList(req, callback){
         let query = `SELECT * FROM customers WHERE company_id = '${req.auth_user.company_id}'`;
-        if (req.query.page) {
-            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
-        }
-        mysqlConnection.query(query, callback)
+        mysqlConnection.query(checkQuery.Customers(req, query), callback)
     }
 
     create(req, callback){

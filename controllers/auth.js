@@ -8,6 +8,7 @@ const { GetBearerToken} = require('../helpers/util.js');
 const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
+const { validateLoginRequest } = require('../validate/auth.js');
 const saltRounds = 10;
 
 
@@ -15,46 +16,44 @@ const saltRounds = 10;
 class AuthControllerClass {
     
     async login (req, res){
-        var dataLogin = {
+        var errors = validateLoginRequest(req)
+        if (Object.keys(errors).length > 0) {
+            return ResponseFail(res, "Invalid input", errors)
+        }
+        var input = {
             user_name:req.body.user_name,
             password: req.body.password
         }
+        
        
-        if (dataLogin.user_name && dataLogin.password) {
-            userTokenModel.login(dataLogin, (err, results) => {
-                if(err) throw (err);
-                bcrypt.compare(dataLogin.password, results[0].password, function(err, result) {
-                    if(result){
-                        var token = GenerateStr(60);
-                        let data = {
-                            name : results[0].name,
-                            user_id: results[0].id,
-                            user_name : results[0].user_name,
-                            token: token,
-                            company_id : results[0].company_id,
-                            email : results[0].email,
-                            phone_number : results[0].phone_number,
-                            avatar: results[0].avatar,
-                            created_at: results[0].created_at,
-                            updated_at: results[0].updated_at
-                        }
-                        //set token trong bang auths
-                        userTokenModel.insertToken(data, (err, results) => {
-                            if(err) throw (err);
-                        })
-    
-                        return ResponseSuccess(res, "Login successful", data)
-                    }  else {
-                        return ResponseFail(res, "Username or password is wrong", null)
+        userTokenModel.login(input, (err, results) => {
+            if(err) throw (err);
+            bcrypt.compare(input.password, results[0].password, function(err, result) {
+                if(result){
+                    var token = GenerateStr(60);
+                    let data = {
+                        name : results[0].name,
+                        user_id: results[0].id,
+                        user_name : results[0].user_name,
+                        token: token,
+                        company_id : results[0].company_id,
+                        email : results[0].email,
+                        phone_number : results[0].phone_number,
+                        avatar: results[0].avatar,
+                        created_at: results[0].created_at,
+                        updated_at: results[0].updated_at
                     }
-                });        
-            })
-        } else {
-            return ResponseFail(res, "", {
-                username: "Is required",
-                password: "Is required"
-            })
-        }
+                    //set token trong bang auths
+                    userTokenModel.insertToken(data, (err, results) => {
+                        if(err) throw (err);
+                    })
+
+                    return ResponseSuccess(res, "Login successful", data)
+                }  else {
+                    return ResponseFail(res, "Username or password is wrong", null)
+                }
+            });        
+        })
 
     }
 

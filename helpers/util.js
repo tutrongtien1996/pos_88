@@ -88,5 +88,11 @@ function setOrder(results){
     }
 }
 
+function IsEmpty(value) {
+    if (value == undefined || value.length == 0) {
+        return true;
+    }
+    return false;
+}
 
-module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder}
+module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder, IsEmpty}

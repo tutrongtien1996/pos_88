@@ -24,47 +24,42 @@ class AuthControllerClass {
             user_name:req.body.user_name,
             password: req.body.password
         }
-        bcrypt.genSalt(saltRounds, function(err, salt) {
-            bcrypt.hash(dataLogin.password, salt, function(err, hash) {
-                dataLogin.password = hash;
-                console.log(dataLogin)
-                if (dataLogin.user_name && dataLogin.password) {
-                    userTokenModle.login(dataLogin, (err, results) => {
-                        if(err) throw (err);
-                        if(results.length > 0){
-                            var token = GenerateStr(60);
-                            let data = {
-                                name : results[0].name,
-                                user_id: results[0].id,
-                                user_name : results[0].user_name,
-                                token: token,
-                                company_id : results[0].company_id,
-                                email : results[0].email,
-                                phone_number : results[0].phone_number,
-                                avatar: results[0].avatar,
-                                created_at: results[0].created_at,
-                                updated_at: results[0].updated_at
-                            }
-                            //set token trong bang auths
-                            userTokenModle.insertToken(data, (err, results) => {
-                                if(err) throw (err);
-                            })
-        
-                            return ResponseSuccess(res, "Login successful", data)
-                        }  else {
-                            return ResponseFail(res, "Username or password is wrong", null)
+       
+        if (dataLogin.user_name && dataLogin.password) {
+            userTokenModle.login(dataLogin, (err, results) => {
+                if(err) throw (err);
+                bcrypt.compare(dataLogin.password, results[0].password, function(err, result) {
+                    if(result){
+                        var token = GenerateStr(60);
+                        let data = {
+                            name : results[0].name,
+                            user_id: results[0].id,
+                            user_name : results[0].user_name,
+                            token: token,
+                            company_id : results[0].company_id,
+                            email : results[0].email,
+                            phone_number : results[0].phone_number,
+                            avatar: results[0].avatar,
+                            created_at: results[0].created_at,
+                            updated_at: results[0].updated_at
                         }
-                                
-                    })
-                } else {
-                    return ResponseFail(res, "", {
-                        username: "Is required",
-                        password: "Is required"
-                    })
-                }
-            });
-        });
-        
+                        //set token trong bang auths
+                        userTokenModle.insertToken(data, (err, results) => {
+                            if(err) throw (err);
+                        })
+    
+                        return ResponseSuccess(res, "Login successful", data)
+                    }  else {
+                        return ResponseFail(res, "Username or password is wrong", null)
+                    }
+                });        
+            })
+        } else {
+            return ResponseFail(res, "", {
+                username: "Is required",
+                password: "Is required"
+            })
+        }
 
     }
 
@@ -85,7 +80,6 @@ class AuthControllerClass {
         bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(user.password, salt, function(err, hash) {
                 user.password = hash;
-                console.log(user);
                 userTokenModle.register(user, (err, result) => {
                     if(err) return ResponseFail(res, "Username already exists", null)
                     var token = GenerateStr(60);
@@ -101,6 +95,7 @@ class AuthControllerClass {
                         created_at: user.created_at,
                         updated_at: user.updated_at
                     }
+                    console.log(user.password)
                     userTokenModle.insertToken(data, (err, results) => {
                         if(err) throw (err);
                         return ResponseSuccess(res, "Login successful", data)

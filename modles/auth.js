@@ -6,7 +6,7 @@ class userToken {
    token
 
    login(data, callback){
-    let query = `SELECT * FROM users WHERE user_name = '${data.user_name}' AND password = '${data.password}'`
+    let query = `SELECT * FROM users WHERE user_name = '${data.user_name}' LIMIT 1`
     mysqlConnection.query(query, callback)
    }
 

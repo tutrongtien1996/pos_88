@@ -88,11 +88,20 @@ function setOrder(results){
     }
 }
 
-function IsEmpty(value) {
-    if (value == undefined || value.length == 0) {
-        return true;
+const Validator = {
+    IsEmpty: function (value) {
+        if (value == undefined || value.length == 0) {
+            return true;
+        }
+        return false;
+    },
+    IsEmail: function (value) {
+        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+            return true
+        }
+        return false
     }
-    return false;
 }
+ 
 
-module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder, IsEmpty}
+module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder, Validator}

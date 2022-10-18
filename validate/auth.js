@@ -1,14 +1,34 @@
-const { IsEmpty } = require("../helpers/util");
+const { Validator } = require("../helpers/util");
 
-function validateLoginRequest(req, res) {
+function validateLoginRequest(req) {
     var errors = {};
-    if (IsEmpty(req.body.user_name)) {
-        errors.username = "Is required";
+    if (Validator.IsEmpty(req.body.user_name)) {
+        errors.user_name = "Is required";
     }
-    if (IsEmpty(req.body.password)) {
+    if (Validator.IsEmpty(req.body.password)) {
         errors.password = "Is required";
     }
     return errors
 }
 
-module.exports = {validateLoginRequest}
+function validateRegisterRequest(req) {
+    var errors = {};
+    if (Validator.IsEmpty(req.body.name)) {
+        errors.name = "Is required";
+    }
+    if (Validator.IsEmpty(req.body.password)) {
+        errors.password = "Is required";
+    }
+    if (Validator.IsEmpty(req.body.password)) {
+        errors.user_name = "Is required";
+    }
+    if (!Validator.IsEmail(req.body.email)) {
+        errors.email = "Is invalid email";
+    }
+    if (Validator.IsEmpty(req.body.company_id)) {
+        errors.company_id = "Is required";
+    }
+    return errors
+}
+
+module.exports = {validateLoginRequest, validateRegisterRequest}

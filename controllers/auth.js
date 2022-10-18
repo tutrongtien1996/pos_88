@@ -8,7 +8,7 @@ const { GetBearerToken} = require('../helpers/util.js');
 const jwt = require('jsonwebtoken');
 
 const bcrypt = require('bcrypt');
-const { validateLoginRequest } = require('../validate/auth.js');
+const { validateLoginRequest, validateRegisterRequest } = require('../validate/auth.js');
 const saltRounds = 10;
 
 
@@ -28,31 +28,32 @@ class AuthControllerClass {
        
         userTokenModel.login(input, (err, results) => {
             if(err) throw (err);
-            bcrypt.compare(input.password, results[0].password, function(err, result) {
-                if(result){
-                    var token = GenerateStr(60);
-                    let data = {
-                        name : results[0].name,
-                        user_id: results[0].id,
-                        user_name : results[0].user_name,
-                        token: token,
-                        company_id : results[0].company_id,
-                        email : results[0].email,
-                        phone_number : results[0].phone_number,
-                        avatar: results[0].avatar,
-                        created_at: results[0].created_at,
-                        updated_at: results[0].updated_at
+            if(results && results.length > 0){
+                bcrypt.compare(input.password, results[0].password, function(err, isValid) {
+                    if (isValid) {
+                        var token = GenerateStr(60);
+                        let data = {
+                            name : results[0].name,
+                            user_id: results[0].id,
+                            user_name : results[0].user_name,
+                            token: token,
+                            company_id : results[0].company_id,
+                            email : results[0].email,
+                            phone_number : results[0].phone_number,
+                            avatar: results[0].avatar,
+                            created_at: results[0].created_at,
+                            updated_at: results[0].updated_at
+                        }
+                        //set token trong bang auths
+                        userTokenModel.insertToken(data, (err, results) => {
+                            if(err) throw (err);
+                        })
+                        return ResponseSuccess(res, "Login successful", data)
                     }
-                    //set token trong bang auths
-                    userTokenModel.insertToken(data, (err, results) => {
-                        if(err) throw (err);
-                    })
-
-                    return ResponseSuccess(res, "Login successful", data)
-                }  else {
-                    return ResponseFail(res, "Username or password is wrong", null)
-                }
-            });        
+                });
+            } else {
+                return ResponseFail(res, "Username or password is wrong", null)
+            }
         })
 
     }
@@ -69,6 +70,10 @@ class AuthControllerClass {
     }
 
     register (req, res){
+        var errors = validateRegisterRequest(req)
+        if (Object.keys(errors).length > 0) {
+            return ResponseFail(res, "Invalid input", errors)
+        }
         var user = req.body;
         
         bcrypt.genSalt(saltRounds, function(err, salt) {

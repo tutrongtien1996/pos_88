@@ -23,6 +23,7 @@ class userToken {
    register(user, callback){
       let query = `INSERT INTO users (name, user_name, password, company_id, email, phone_number, avatar)
       VALUES ('${user.name}', '${user.user_name}', '${user.password}', '${user.company_id}', '${user.email}', '${user.phone_number}', '${user.avatar}')`;
+      console.log(query)
       mysqlConnection.query(query, callback)
    }
 }

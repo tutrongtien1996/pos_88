@@ -4,6 +4,7 @@ const dotenv = require('dotenv').config()
 
 var mysqlConnection = mysql.createConnection({
     host: dotenv.parsed.MYSQL_HOST,
+    port: dotenv.parsed.MYSQL_PORT,
     user: dotenv.parsed.MYSQL_USER,
     password: dotenv.parsed.MYSQL_PASSWORD,
     database: dotenv.parsed.MYSQL_DATABASE
@@ -13,6 +14,7 @@ mysqlConnection.connect(function(err){
     if(err){
         console.log({
             host: dotenv.parsed.MYSQL_HOST,
+            port: dotenv.parsed.MYSQL_PORT,
             user: dotenv.parsed.MYSQL_USER,
             password: dotenv.parsed.MYSQL_PASSWORD,
             database: dotenv.parsed.MYSQL_DATABASE

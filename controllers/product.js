@@ -1,13 +1,12 @@
-const {mysqlConnection} = require('../comon/connect.js');
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
 const {getID} = require('../helpers/util')
-const {productModle} = require('../modles/product')
+const {productModel} = require('../models/product')
 
 
 class ProductControllerClass { 
 
     getList (req, res){
-        productModle.getList(req, (err, results) => {
+        productModel.getList(req, (err, results) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
@@ -15,34 +14,35 @@ class ProductControllerClass {
         })
        
     }
+
     create (req, res){
-        productModle.create(req, (err, data) => {
+        productModel.create(req, async (err, data) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
             const input = getID(data.insertId, req.auth_user.company_id);
-            
-            return productModle.getOne(input, (err, result) => {
-                if (err) throw err 
-                return ResponseSuccess(res, "successful", result[0])
-            })
-            return ResponseFail(res, "unsuccesful")
+            try {
+                let data = await productModel.getOne(input)
+                return ResponseSuccess(res, "successful", data)
+            } catch (err) {
+                return ResponseFail(res, err)
+            }
         })
     } 
 
-    getOne (req, res) {
+    async getOne (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id)
-        productModle.getOne(input, (err, result) => {
-            if(err){
-                return ResponseFail(res, "unsuccesful")
-            }
-            return ResponseSuccess(res, "successful", result[0])
-        })
+        try {
+            let data = await productModel.getOne(input)
+            return ResponseSuccess(res, "successful", data)
+        } catch (err) {
+            return ResponseFail(res, err)
+        }
     }
 
     delete (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id)
-        productModle.delete(input, (err, data) => {
+        productModel.delete(input, (err, data) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
@@ -51,14 +51,17 @@ class ProductControllerClass {
     }
 
     update (req, res)  {
-        productModle.update(req, (err, result) => {
+        productModel.update(req, async (err, result) => {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
             const input = getID(req.params.id, req.auth_user.company_id)
-            productModle.getOne(input, (err, data) => {
-            return ResponseSuccess(res, "successful", data[0])
-            })
+            try {
+                let data = await productModel.getOne(input)
+                return ResponseSuccess(res, "successful", data)
+            } catch (err) {
+                return ResponseFail(res, err)
+            }
         })
     }
 }

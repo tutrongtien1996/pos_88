@@ -11,6 +11,7 @@ function validateLoginRequest(req) {
     return errors
 }
 
+
 function validateRegisterRequest(req) {
     var errors = {};
     if (Validator.IsEmpty(req.body.name)) {
@@ -30,5 +31,7 @@ function validateRegisterRequest(req) {
     }
     return errors
 }
+ 
+
 
 module.exports = {validateLoginRequest, validateRegisterRequest}

@@ -1,6 +1,7 @@
 
 
 var http = require('http');
+const nodemailer = require("nodemailer");
 const { ResponseFail, ResponseSuccess } = require('../helpers/response.js');
 const {userTokenModel} = require('../models/auth')
 const { GenerateStr } = require('../helpers/util.js');
@@ -95,14 +96,37 @@ class AuthControllerClass {
                         updated_at: user.updated_at
                     }
                     console.log(user.password)
+                    // sendcode();
                     userTokenModel.insertToken(data, (err, results) => {
                         if(err) throw (err);
-                        return ResponseSuccess(res, "Login successful", data)
+                        return ResponseSuccess(res, "Register success successful", data)
                     })  
                 })
             });
         });
         
+    }
+
+    async sendcode (req, res){
+
+        let transporter = nodemailer.createTransport({
+            host: "smtp.ethereal.email",
+            port: 587,
+            secure: false,
+          auth: {
+            user: process.env.email,
+            pass: process.env.pass 
+          },
+        });
+      
+        await transporter.sendMail({
+          from: process.env.email,
+          to: req.body.email, 
+          subject: "Hello ✔", 
+          text: "Hello world?", 
+          html: "<b>Hello world?</b>",
+        }
+       );
     }
 }
 const AuthController = new AuthControllerClass();

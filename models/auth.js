@@ -1,4 +1,4 @@
-const {mysqlConnection} = require('../comon/connect.js');
+const {mysqlConnection} = require('../common/connect.js');
 
 class userToken {
    id
@@ -20,10 +20,18 @@ class userToken {
     mysqlConnection.query(query, callback)
    }
 
+   registerCompany(company, callback){
+      let query = `INSERT INTO companies (name) VALUES ('${company.user_name}')`;
+      mysqlConnection.query(query, callback)
+   }
+   deleteCompany(company, callback){
+      let query = `DELETE FROM companies WHERE id = '${company.company_id}'`;
+      mysqlConnection.query(query, callback)
+   }
+   
    register(user, callback){
-      let query = `INSERT INTO users (name, user_name, password, company_id, email, phone_number, avatar)
-      VALUES ('${user.name}', '${user.user_name}', '${user.password}', '${user.company_id}', '${user.email}', '${user.phone_number}', '${user.avatar}')`;
-      console.log(query)
+      let query = `INSERT INTO users (user_name, password, company_id, name, email, phone_number, avatar)
+      VALUES ('${user.user_name}', '${user.password}', '${user.company_id}', '${user.name}', '${user.email}', '${user.phone_number}', '${user.avatar}')`;
       mysqlConnection.query(query, callback)
    }
 }

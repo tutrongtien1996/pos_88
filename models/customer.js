@@ -1,4 +1,4 @@
-const {mysqlConnection} = require('../comon/connect.js');
+const {mysqlConnection} = require('../common/connect.js');
 const { checkQuery } = require('../helpers/checkQuery.js');
 
 class customer {

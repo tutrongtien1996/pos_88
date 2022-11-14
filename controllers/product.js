@@ -1,6 +1,9 @@
 const { ResponseSuccess, ResponseFail } = require('../helpers/response.js');
 const {getID} = require('../helpers/util')
 const {productModel} = require('../models/product')
+const fs = require('fs')
+const {validate} = require('../validate/product')
+
 
 
 class ProductControllerClass { 
@@ -16,13 +19,23 @@ class ProductControllerClass {
     }
 
     create (req, res){
+        let errors = validate.productRequest(req)
+        console.log(req.file)
+        if(Object.keys(errors).length > 0){
+            fs.unlink(req.file.path,  function (err, data) {
+                if (err) throw err;
+                console.log('Delete file successfully');
+            });
+            return ResponseFail(res, "unsuccesful", errors)
+        }
         productModel.create(req, async (err, data) => {
             if(err){
-                return ResponseFail(res, "unsuccesful")
+                return ResponseFail(res, "unsuccesful")  
             }
             const input = getID(data.insertId, req.auth_user.company_id);
             try {
                 let data = await productModel.getOne(input)
+
                 return ResponseSuccess(res, "successful", data)
             } catch (err) {
                 return ResponseFail(res, err)
@@ -62,6 +75,19 @@ class ProductControllerClass {
             } catch (err) {
                 return ResponseFail(res, err)
             }
+        })
+    }
+
+    getImage (req, res){
+        let imageName = "uploads/products/" + req.params.id;
+        fs.readFile(imageName, (err, result) => {
+            if(err) {
+                return ResponseFail(res, "unsuccesful")
+            }
+            res.status(200);
+            res.setHeader('Content-Type', 'image/jpeg');
+            return res.end(result)
+            
         })
     }
 }

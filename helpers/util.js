@@ -1,5 +1,6 @@
 const { ResponseFail } = require("./response");
-const {mysqlConnection} = require('../comon/connect.js');
+const {mysqlConnection} = require('../common/connect.js');
+var fs = require('fs');
 
 function GenerateStr(len) {
     var result           = '';
@@ -37,8 +38,29 @@ async function  CheckToken(req, res, data) {
 
 function _getToken(token) {
     return new Promise ((resolve, reject) => {
-        let query = `SELECT users.name, users.user_name, token, users.id, users.company_id FROM auths INNER JOIN users ON auths.user_id = users.id WHERE token = '${token}' LIMIT 1`;
-
+        const d = new Date();
+        function formatNumber(x) {
+            x = String(x)
+            if(x.length == 2){
+                return x;
+            }else{
+                x = '0'+ x;
+                return x;
+            }
+        }
+        d.setDate(d.getDate() - 2);
+        let year = d.getFullYear();
+        let month = formatNumber(d.getMonth() + 1);
+        let date = formatNumber(d.getDate());
+        let hour = formatNumber(d.getHours());
+        let minute = formatNumber(d.getMinutes());
+        let second = formatNumber(d.getSeconds());
+        let fullDate = `${year}-${month}-${date} ${hour}:${minute}:${second}`;
+        
+        
+        
+        
+        let query = `SELECT users.name, users.user_name, token, users.id, users.company_id FROM auths INNER JOIN users ON auths.user_id = users.id WHERE token = '${token}' AND auths.created_at > "${fullDate}" LIMIT 1`;
         mysqlConnection.query(query, (err, results) => {
             if(err) throw err
             resolve(results)
@@ -96,12 +118,44 @@ const Validator = {
         return false;
     },
     IsEmail: function (value) {
-        if (/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(value)) {
+        var pattern = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (pattern.test(value)) {
+            return true
+        }
+        return false
+    },
+    IsPhonenumber: function (value) {
+        var pattern = /^\(?(\d{3})\)?[- ]?(\d{3})[- ]?(\d{4})$/
+        if (pattern.test(value)) {
+            return true
+        }
+        return false
+    },
+    Maximum: function (value, max) {
+        if (value != undefined) {
+            if (value.length > max) {
+                return false
+            }
+        }
+        return false;
+    },
+
+    lessLength: function (value) {
+        if (value.length > 15 || value.length < 6){
             return true
         }
         return false
     }
 }
  
+function ReadHTMLFile(path, data = {}) {
+    var content = fs.readFileSync(path,'utf8').toString();
+    for (const key in data) {
+        if (Object.hasOwnProperty.call(data, key)) {
+            content = content.replace("[["+key+"]]",  data[key])
+        }
+    }
+    return content;
+}
 
-module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder, Validator}
+module.exports = {GenerateStr,  GetBearerToken, CheckToken, getID, setOrder, Validator, ReadHTMLFile}

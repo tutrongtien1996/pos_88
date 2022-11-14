@@ -1,5 +1,5 @@
 
-const {mysqlConnection} = require('../comon/connect.js');
+const {mysqlConnection} = require('../common/connect.js');
 const {checkQuery} = require('../helpers/checkQuery.js')
 
 class order {
@@ -54,7 +54,7 @@ class order {
         LEFT JOIN products
         ON order_items.product_id = products.id
         WHERE orders.id = '${input.id}' AND orders.company_id = '${input.company_id}'`
-        console.log(query)
+
         mysqlConnection.query(query, callback)
 
     }

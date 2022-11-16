@@ -18,7 +18,7 @@ ProductRouters.get('/:id', Middleware.CheckToken, ProductController.getOne)
 
 ProductRouters.delete('/delete/:id', Middleware.CheckToken, ProductController.delete)
 
-ProductRouters.patch('/update/:id', Middleware.CheckToken, ProductController.update)
+ProductRouters.patch('/update/:id', Middleware.CheckToken, uploadProduct.single('avatar'), ProductController.update)
 
 ProductRouters.get('/image/:id', ProductController.getImage)
 

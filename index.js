@@ -17,7 +17,7 @@ const PORT= dotenv.parsed.PORT;
 
 app.use(cors())
 app.use(bodyParser.json());
-app.use('/public', express.static('uploads'))
+app.use('/uploads', express.static('uploads'))
 app.use('/admin', AuthRoute)
 app.use('/admin/customers', CustomerRouters)
 app.use('/admin/products', ProductRouters)

@@ -11,7 +11,7 @@ class product {
     updated_at
 
     getList(req, callback){
-        let query = `SELECT *, IF (image is not null, CONCAT("public/products/",id,"/", image), "") as image FROM products WHERE company_id = '${req.auth_user.company_id}'`;
+        let query = `SELECT * FROM products WHERE company_id = '${req.auth_user.company_id}'`;
        
         mysqlConnection.query(checkQuery.Products(req, query), callback)
     }
@@ -19,7 +19,7 @@ class product {
     create(product, callback){
         if(product && product.body.name && product.body.price ){
             let query = `INSERT INTO products (name, price, image, company_id)
-            VALUES ('${product.body.name}', '${product.body.price}', '${product.file.path}', '${product.auth_user.company_id}')`;
+            VALUES ('${product.body.name}', '${product.body.price}', '${product.body.image}', '${product.auth_user.company_id}')`;
             mysqlConnection.query(query, callback)
         }
     }
@@ -27,7 +27,7 @@ class product {
     getOne (input) {
         if(input){
             return new Promise ((resolve, reject) => {
-                let query = `SELECT id, name, company_id, price, CONCAT("public/products/1/", image) as image, created_at, updated_at FROM products WHERE id = '${input.id}' AND company_id = '${input.company_id}' `
+                let query = `SELECT id, name, company_id, price,  image, created_at, updated_at FROM products WHERE id = '${input.id}' AND company_id = '${input.company_id}' `
         
                 mysqlConnection.query(query, (err, results) => {
                     if(err) {

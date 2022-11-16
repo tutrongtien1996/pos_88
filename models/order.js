@@ -22,7 +22,7 @@ class order {
     create(order, callback){
         if(order.body){
             let query = `INSERT INTO orders (company_id, customer_id, total)
-            VALUES ('${order.company_id}', '${order.body.customer_id}', '${order.body.total}')`;
+            VALUES ('${order.company_id}', ${order.body.customer_id == "" ? null : order.body.customer_id}, '${order.body.total}')`;
             mysqlConnection.query(query, callback)
         }
     }
@@ -54,6 +54,7 @@ class order {
         LEFT JOIN products
         ON order_items.product_id = products.id
         WHERE orders.id = '${input.id}' AND orders.company_id = '${input.company_id}'`
+        console.log(query)
 
         mysqlConnection.query(query, callback)
 

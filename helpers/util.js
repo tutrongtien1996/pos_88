@@ -28,7 +28,9 @@ function GetBearerToken(req) {
 async function  CheckToken(req, res, data) {
     
     let token = await GetBearerToken(req)
+    
     var result = await _getToken(token)
+    
     if (result.length > 0) {
         req.auth_user = result[0];
         return true;
@@ -61,6 +63,7 @@ function _getToken(token) {
         
         
         let query = `SELECT users.name, users.user_name, token, users.id, users.company_id FROM auths INNER JOIN users ON auths.user_id = users.id WHERE token = '${token}' AND auths.created_at > "${fullDate}" LIMIT 1`;
+        
         mysqlConnection.query(query, (err, results) => {
             if(err) throw err
             resolve(results)

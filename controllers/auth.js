@@ -3,6 +3,7 @@ const nodemailer = require("nodemailer");
 const { ResponseFail, ResponseSuccess } = require('../helpers/response.js');
 const {userTokenModel} = require('../models/auth')
 const {UserModel} = require('../models/user')
+const {CodeModel} = require('../models/code')
 const { GenerateStr, ReadHTMLFile } = require('../helpers/util.js');
 const { GetBearerToken} = require('../helpers/util.js');
 const bcrypt = require('bcrypt');
@@ -21,16 +22,16 @@ class AuthControllerClass {
             password: req.body.password
         }
         
-       
         userTokenModel.login(input, (err, results) => {
             if(err) throw (err);
             if(results && results.length > 0){
                 bcrypt.compare(input.password, results[0].password, function(err, isValid) {
+                    if(!isValid) return ResponseFail(res, "Invalid Password", null)
                     if (isValid) {
                         var token = GenerateStr(60);
                         let data = {
                             name : results[0].name,
-                            user_id: results[0].id,
+                            id: results[0].id,
                             user_name : results[0].user_name,
                             token: token,
                             company_id : results[0].company_id,
@@ -41,7 +42,11 @@ class AuthControllerClass {
                             updated_at: results[0].updated_at
                         }
                         //set token trong bang auths
-                        userTokenModel.insertToken(data, (err, results) => {
+                        var inputAuth = {
+                            token: token,
+                            user_id: results[0].id,
+                        }
+                        userTokenModel.insertToken(inputAuth, (err, results) => {
                             if(err) throw (err);
                         })
                         return ResponseSuccess(res, "Login successful", data)
@@ -57,7 +62,6 @@ class AuthControllerClass {
     logout (req, res){
         let user = {
             token : GetBearerToken(req),
-            user_name: req.body.user_name
         }
         userTokenModel.logout(user, (err, result) => {
             if (err) throw err
@@ -66,6 +70,7 @@ class AuthControllerClass {
     }
 
     register (req, res){
+        console.log(req.body)
         var errors = validateRegisterRequest(req)
         if (Object.keys(errors).length > 0) {
             return ResponseFail(res, "Invalid input", errors)
@@ -108,17 +113,21 @@ class AuthControllerClass {
                         req.params.id = req.auth_user.user_id
                         UserModel.getOne(req, (err, userData) => {
                             if(err) throw err
-                            console.log(userData)
                             data.name = userData[0].name;
-                            data.user_id = userData[0].id;
+                            data.id = userData[0].id;
                             data.user_name = userData[0].user_name;
+                            data.token = token;
                             data.company_id = userData[0].company_id;
                             data.email = userData[0].email;
                             data.phone_number = userData[0].phone_number;
                             data.avatar = userData[0].avatar;
                             data.created_at = userData[0].created_at;
                             data.updated_at = userData[0].updated_at
-                            userTokenModel.insertToken(data, (err, results) => {
+                            var inputAuth = {
+                                token: token,
+                                user_id: userData[0].id
+                            }
+                            userTokenModel.insertToken(inputAuth, (err, results) => {
                                 if(err) return ResponseFail(res, "Not create token", null)
                                 return ResponseSuccess(res, "Register success successful", data)
                             })  
@@ -128,41 +137,74 @@ class AuthControllerClass {
                 }) 
             });
         });
-        // }) 
     }
 
+    async sendcode  (req, res){ 
+        try {
+            let data = await UserModel.findUser(req.body.email)
+            let code = Math.floor(Math.random() * 1000000);
 
-
-    async sendcode (req, res){
-        let code = Math.floor(Math.random() * 1000000);
-        const content = ReadHTMLFile('./resource/mail/one_time_password.html', {code: code})
-        var transport = nodemailer.createTransport({
-            host: process.env.mailhost,
-            port: process.env.mailPort,
-            auth: {
-              user: process.env.email,
-              pass: process.env.pass
-            }
-          }); 
-         
-        await transport.sendMail({
-            from: process.env.email,
-            to: req.body.email, 
-            subject: "Hello ✔", 
-            html: content, 
-          }, (err) => {
-            if(err){
-                console.log(err)
-                return res.send(err)
-            }
-            let query = `INSERT INTO codes (email, phone_number, code)
-            VALUES ('${req.body.email}','', '${code}')`
-            mysqlConnection.query(query, (err, result) => {
-                if (err) throw err
-                return res.send('thanh cong')
+            const content = ReadHTMLFile('./resource/mail/one_time_password.html', {code: code})
+            var transport = nodemailer.createTransport({
+                host: process.env.mailhost,
+                port: process.env.mailPort,
+                auth: {
+                    user: process.env.email,
+                    pass: process.env.pass
+                }
+                }); 
+                
+            await transport.sendMail({
+                from: process.env.email,
+                to: req.body.email, 
+                subject: "Hello ✔", 
+                html: content, 
+                }, (err, result) => {
+                if(err){
+                    console.log(err)
+                    return res.send(err)
+                }
+                let query = `INSERT INTO codes (email, code)
+                VALUES ('${req.body.email}', '${code}')`
+                mysqlConnection.query(query, (err, result) => {
+                    if (err) throw err
+                })
+            });
+            return ResponseSuccess(res, "thanh cong", data) 
+        }
+        catch (err) {
+            return ResponseFail(res, err)
+        }
+    }
+    
+    async resetpass(req, res){
+        try{
+            let data = await CodeModel.getOne(req.body)
+            data.password = req.body.password;
+            bcrypt.genSalt(saltRounds, function(err, salt) {
+                bcrypt.hash(data.password, salt, function(err, hash) {
+                    data.password = hash
+                    UserModel.resetPass(data, (err, result) => {
+                    if(err) throw err;
+                    var token = GenerateStr(60);
+                    data.token = token;
+                    var inputAuth = {
+                        token: token,
+                        user_id: data.id,
+                    }
+                    userTokenModel.insertToken(inputAuth, (err, results) => {
+                        if(err) throw (err);
+                    })
+                    return ResponseSuccess(res, "Login successful", data)
+                    })
+                })
             })
-          });
-    }
+            
+        }
+        catch(err){
+            return ResponseFail(res, err, null)
+        } 
+    }              
 }
 const AuthController = new AuthControllerClass();
 module.exports = {AuthController}

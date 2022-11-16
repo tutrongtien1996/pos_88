@@ -20,13 +20,18 @@ class ProductControllerClass {
 
     create (req, res){
         let errors = validate.productRequest(req)
-        console.log(req.file)
+        
         if(Object.keys(errors).length > 0){
             fs.unlink(req.file.path,  function (err, data) {
                 if (err) throw err;
-                console.log('Delete file successfully');
             });
             return ResponseFail(res, "unsuccesful", errors)
+        }
+        if(req.file){
+            req.body.image = req.file.path
+        }
+        else{
+            req.body.image = ""
         }
         productModel.create(req, async (err, data) => {
             if(err){
@@ -59,24 +64,52 @@ class ProductControllerClass {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
-            return ResponseSuccess(res, "successful", data)
+            return ResponseSuccess(res, "delete thanh cong", data)
         })
     }
 
-    update (req, res)  {
-        productModel.update(req, async (err, result) => {
-            if(err){
-                return ResponseFail(res, "unsuccesful")
+    async update (req, res) {
+        const input = getID(req.params.id, req.auth_user.company_id)
+        try {
+            let data = await productModel.getOne(input)
+            if(req.file){
+                req.body.image = req.file.path
             }
-            const input = getID(req.params.id, req.auth_user.company_id)
-            try {
-                let data = await productModel.getOne(input)
-                return ResponseSuccess(res, "successful", data)
-            } catch (err) {
-                return ResponseFail(res, err)
+            else{
+                req.body.image = ""
             }
-        })
+            productModel.update(req, async (err, result) => {
+                if(err){
+                    if(req.file){
+                        fs.unlink(req.file.path,  function (err, data) {
+                            if (err) throw err;
+                        });
+                    }
+                    return ResponseFail(res, "khong the update", null);
+                } 
+                if(data.image){
+                    fs.unlink(data.image,  function (err, data) {
+                        if (err) throw err;
+                    });
+                }
+                try {
+                    let data = await productModel.getOne(input)
+                    return ResponseSuccess(res, "successful", data)
+                } catch (err) {
+                    return ResponseFail(res, err)
+                }
+            })
+            
+        } catch (err) {
+            if(req.file){
+                fs.unlink(req.file.path,  function (err, data) {
+                    if (err) throw err;
+                });
+            }
+            return ResponseFail(res, err)
+        }
     }
+    
 
     getImage (req, res){
         let imageName = "uploads/products/" + req.params.id;

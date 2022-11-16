@@ -28,21 +28,30 @@ class UserControllerClass {
             company_id: req.auth_user.company_id,
             email: req.body.email,
             phone_number: req.body.phone_number,
-            avatar: req.file.path
         }
         bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(user.password, salt, function(err, hash) {
                 user.password = hash;
+                if(req.file){
+                    user.avatar = req.file.path
+                }
+                else{
+                    user.avatar = ""
+                }
                 userTokenModel.register(user, (err, result) => {
                     if(err) 
                     {
-                        fs.unlink(req.file.path, (err, result) => {
-                        })
+                        if(req.file){
+                            fs.unlink(req.file.path, (err, result) => {
+                                if(err) throw err
+                            })
+                            return ResponseFail(res, "unsccess")  
+                        }
                         return ResponseFail(res, "unsccess")  
                     }
                     let data = {
                         name : user.name,
-                        user_id: result.insertId,
+                        id: result.insertId,
                         user_name : user.user_name,
                         company_id : user.company_id,
                         email : user.email,
@@ -67,27 +76,73 @@ class UserControllerClass {
     }
 
     update (req, res) {
-        UserModel.getOne(req, (err, result) => {
+        UserModel.getOne(req, (err, userGetOne) => {
             if(err) throw err;
-            fs.unlink(result[0].avatar, (err, result) => {
-            })
+            if(userGetOne.length == 0){
+                return ResponseFail(res, "khong duoc quyen chinh sua tai khoan nay", null)  
+            }
+            if(userGetOne.password != req.body.old_password){
+
+            }
             let user = {
-                id: req.auth_user.id,
+                id: req.params.id,
                 name : req.body.name,
                 user_name: req.body.user_name,
-                password: req.body.password,
                 company_id: req.auth_user.company_id,
                 email: req.body.email,
                 phone_number: req.body.phone_number,
-                avatar: req.file.path
+            }
+            if(req.file){
+                user.avatar = req.file.path
+            }
+            else{
+                user.avatar = ""
             }
             UserModel.update(user, (err, result) => {
                 if(err) {
+                    if(req.file){
+                        fs.unlink(result[0].avatar, (err, result) => {
+                            if(err) throw err
+                        })
+                        return ResponseFail(res, "user_name da ton tai")  
+                    }
                     return ResponseFail(res, "user_name da ton tai")  
+                }
+                if(userGetOne[0].avatar){
+                    fs.unlink(userGetOne[0].avatar, (err, result) => {
+                        if(err) throw err
+                    })
                 }
                 return ResponseSuccess(res, "Success", user)
             })
         })
+    }
+
+    resetPassword(req, res){
+        UserModel.getOne(req, (err, userGetOne) => {
+            if(err) throw err;
+            if(userGetOne.length == 0){
+                return ResponseFail(res, "khong duoc quyen chinh sua tai khoan nay", null)  
+            }
+            bcrypt.compare(req.body.old_password, userGetOne[0].password, function(err, isValid){
+                if(isValid){
+                    let user = {
+                        id: userGetOne[0].id
+                    }
+                    bcrypt.genSalt(saltRounds, function(err, salt) {
+                        bcrypt.hash(req.body.password, salt, function(err, hash) {
+                            user.password = hash;
+                            UserModel.resetPassword(user, (err, result) => {
+                                if (err) throw err
+                            })
+                        })
+                    })
+                    return ResponseSuccess(res, "Success", userGetOne) 
+                }
+                return ResponseFail(res, "Invalid Password", null)   
+            })
+        })
+        
     }
 
     delete (req, res){

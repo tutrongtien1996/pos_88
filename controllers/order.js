@@ -19,6 +19,7 @@ class OrderControllerClass {
             body: req.body,
             company_id: req.auth_user.company_id
         };
+        
         orderModel.create(order, (err, result) => {
             if (err) throw err;
             var orderItems = {

@@ -17,15 +17,15 @@ class OrderControllerClass {
     create (req, res){
         var order = {
             body: req.body,
-            company_id: req.auth_user.company_id
+            company_id: 42
         };
-        
         orderModel.create(order, (err, result) => {
             if (err) throw err;
             var orderItems = {
-                product: req.body.items,
+                products: req.body.products,
                 order_id: result.insertId
             }
+            
             return orderModel.createItems(orderItems, (err, data) => {
                 if (err) throw err;
                 const input = getID(orderItems.order_id, req.auth_user.company_id);

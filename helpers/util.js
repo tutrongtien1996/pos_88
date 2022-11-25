@@ -13,7 +13,6 @@ function GenerateStr(len) {
 }
 
 function GetBearerToken(req) {
-    // Lay token tu header
     let bearerToken = req.header("Authorization");
     if (bearerToken == null) {
     return null

@@ -40,7 +40,6 @@ class ProductControllerClass {
             const input = getID(data.insertId, req.auth_user.company_id);
             try {
                 let data = await productModel.getOne(input)
-
                 return ResponseSuccess(res, "successful", data)
             } catch (err) {
                 return ResponseFail(res, err)

@@ -21,15 +21,15 @@ class order {
 
     create(order, callback){
         if(order.body){
-            let query = `INSERT INTO orders (company_id, customer_id, total)
-            VALUES ('${order.company_id}', ${order.body.customer_id == "" ? null : order.body.customer_id}, '${order.body.total}')`;
+            let query = `INSERT INTO orders (company_id, customer_id, total, code, date)
+            VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.code}', '${order.body.date}')`;
             mysqlConnection.query(query, callback)
         }
     }
     createItems(orderItems, callback){
         var valueInserts = "";
-        orderItems.product.forEach(item => {
-            valueInserts += `('${orderItems.order_id}', '${item.product_id}', '${item.quantity}', ${item.price}),`;
+        orderItems.products.forEach(item => {
+            valueInserts += `('${orderItems.order_id}', '${item.id}', '${item.quantity}', ${item.price}),`;
         });
         valueInserts = valueInserts.slice(0, -1);
         let query = `INSERT INTO order_items (order_id, product_id, quantity, price)
@@ -54,7 +54,6 @@ class order {
         LEFT JOIN products
         ON order_items.product_id = products.id
         WHERE orders.id = '${input.id}' AND orders.company_id = '${input.company_id}'`
-        console.log(query)
 
         mysqlConnection.query(query, callback)
 

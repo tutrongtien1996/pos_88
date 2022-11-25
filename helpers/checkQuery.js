@@ -3,7 +3,7 @@
 class check {
     Orders(query, req){
         if (req.query.page) {
-            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
+            query += " LIMIT " + req.query.limit + " OFFSET "+((req.query.page - 1) * req.query.limit)
         }
         if (req.query.product_id){
             query = `SELECT orders.id, orders.company_id, orders.customer_id,  orders.created_at, orders.updated_at,

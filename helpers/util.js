@@ -24,7 +24,7 @@ function GetBearerToken(req) {
 
 
 
-async function  CheckToken(req, res, data) {
+async function  CheckToken(req) {
     
     let token = await GetBearerToken(req)
     

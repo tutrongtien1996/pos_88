@@ -22,7 +22,7 @@ class order {
     create(order, callback){
         if(order.body){
             let query = `INSERT INTO orders (company_id, customer_id, total, code, date)
-            VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.code}', '${order.body.date}')`;
+            VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.code}')`;
             mysqlConnection.query(query, callback)
         }
     }

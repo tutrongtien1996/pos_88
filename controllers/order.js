@@ -17,7 +17,7 @@ class OrderControllerClass {
     create (req, res){
         var order = {
             body: req.body,
-            company_id: 42
+            company_id: req.auth_user
         };
         orderModel.create(order, (err, result) => {
             if (err) throw err;

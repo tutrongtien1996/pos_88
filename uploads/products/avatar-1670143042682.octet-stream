@@ -1,0 +1,917 @@
+-- phpMyAdmin SQL Dump
+-- version 4.8.5
+-- https://www.phpmyadmin.net/
+--
+-- Host: localhost
+-- Generation Time: Nov 26, 2022 at 07:29 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.2.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `pos_88`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `auths`
+--
+
+CREATE TABLE `auths` (
+  `id` int(11) NOT NULL,
+  `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `auths`
+--
+
+INSERT INTO `auths` (`id`, `token`, `user_id`, `created_at`, `updated_at`) VALUES
+(101, '1fzOmJRYSHItHPVsEmQk2h2tK0XjIZu42RhTanh1wpj3Bcb2CdhzRFMANy2h', 94, '2022-10-20 08:54:08', '2022-10-20 18:04:28'),
+(102, '6NfFI77h461SVYtqNHQXbStWhsaLHA33pY2cNViW1LPcVirlvnMNMzq34SPp', 93, '2022-10-17 08:54:54', '2022-10-20 16:40:11'),
+(103, '0XRPWZ8ouiTYEu3UKMqbilA9IvczBpLlijXJzNRtOp7UjNZ6JuDGFepmewzh', 94, '2022-10-17 08:55:39', '2022-10-20 16:40:11'),
+(104, 'gDFh90U8GjfXFgxF1nCniGixdN8EVDI8VyXB0fRA4trId2Ngb9sgqWVgRPKK', 94, '2022-10-17 09:13:16', '2022-10-20 16:43:49'),
+(105, 'cyzDr19axKJPunvefPu6LYu3eY9x2A7sdCEBl1J9cGWc4S0frho5UYv41fQl', 94, '2022-10-20 11:06:06', NULL),
+(106, 'bP29Ev0uKEtR2STCpZJTInNZPCEdDBCbrm75kYX359w6s5jicVJZBuqHEu8W', 95, '2022-10-21 12:14:11', NULL),
+(107, 'hk6LjBrcPJEDAL5GtR3GitYNTvnsMsyP4rlnocoumV4C4MbgDdrg459GvUoW', 94, '2022-11-04 12:51:55', NULL),
+(108, 'Amh8kNuyb4F9HG2saxcSKNttZbEhrnyiJJCiAir1ifji3G1UEWUxIPm9JfzB', 94, '2022-11-04 13:50:10', NULL),
+(109, 'JeDy8MVdvKykggvFSTUXeg12PsfA5k10V1Qv29sSBF5KOezGC8t0s7a4LWm9', 94, '2022-11-04 13:51:11', NULL),
+(110, 'JbI9SYhuXuYwnf7rv4EzRmlv5srcdNtrTbv2SsH6tBa3RuKWKP7YJTz0XSdQ', 94, '2022-11-04 14:04:43', NULL),
+(111, '7ksAr5xOmYV0wQEjxgdEb0cxVNAcODg8OcqHsrtJCzlBBrt6IJDPwjglY6mY', 94, '2022-11-04 14:13:36', NULL),
+(112, 'wcTJ7WCsyyZZTdpJRkeBt5UnBppaHyloYX1wf6oPD5xrT8qbnPzKKn6rBklx', 94, '2022-11-04 14:16:15', NULL),
+(113, 'Z5qwCrmvDdWTrZq5R34bV0X6fDLdnGsaYyw5fXcLdFOgsIMueHGTnvUPE1iV', 94, '2022-11-04 14:16:57', NULL),
+(114, 'TdtognKOJtm90Yb8fMfoDcduUWxhfHxKRZMZxLnoVOr2TzbyABLuKrtkitsa', 94, '2022-11-04 14:18:18', NULL),
+(115, 'jAY9IpEdeQmDMgnyEoHHhPcFrsF59CEBMYcQICLm4RbhiICWO31PxLPsEuEw', 94, '2022-11-04 14:19:13', NULL),
+(116, 'MbXrsuxxdjB32XpzyRTuQBSE6YWOo4bXxUtUzKcx1ysQvI7uJFxmLJMGIKR7', 94, '2022-11-04 14:20:24', NULL),
+(117, 'wMbI8G19J6phwQOGzTYQzO6JtSSKxLZUcYScZrFRu3XtQSbrb9s7fhzjnBax', 94, '2022-11-04 14:21:28', NULL),
+(118, '8b6WqT28lwbNScxLKxahf3WirJFghOAeOpLU0zVMqBBM9N83zNzdtjoenKNu', 94, '2022-11-04 14:22:39', NULL),
+(119, '7sJMVO3uSAF6kDnFrWuBWCGg2AZmTurR8UYTGuIfY7VPJ5qtt7u6iVs5BTKE', 94, '2022-11-04 14:22:55', NULL),
+(120, 'kpt6jDT1KU4m3iL1iE41qGCrqXXvLmHdBPWPhmrybcDdlexcLmybeTvoTodn', 94, '2022-11-04 14:24:35', NULL),
+(121, 'hn3nenFbi8GDUOwLB3cuHN5X5DqLXKlevJr5tbGBepjyOZZC35f0FpWft3Od', 94, '2022-11-04 14:24:59', NULL),
+(122, 'sYdmpi6ANYeAG7y5dTUlV0l0aGBKgYoGnOydCveWSCjQWPQ4oiPJY7ONH5zC', 94, '2022-11-04 14:37:44', NULL),
+(123, 'DZoZkcYGh5Ub5qkr4V4MVtgUN64hLQlh9Bub2ZkZlwimlX6J95hWnlYUu0Cf', 94, '2022-11-04 14:37:45', NULL),
+(124, '9XjWFnLi083NhDs1S730kbzn6YGquoQhOsbQoNFAR19r3bdfolnLcpHVGFoG', 94, '2022-11-04 14:37:45', NULL),
+(125, 'WQSkDLDNlwRWPBQLZB6VMY8W0BUijhrsLiPiOwxxalaVu1ZrYHvuX5Wt4Yom', 94, '2022-11-04 14:37:45', NULL),
+(126, 'EOcI9HEBJg46Uk5cjFfvDbXhzwPlFJMLmbi4Xkp3rGjH8IggDs5MPnOcguDL', 94, '2022-11-04 14:38:26', NULL),
+(127, 'XGr3vFuseQZ0sPTW6zaYcbb5qZLvrXJ1RsbRdS5LuvllIks3tD7DEqKhxL1v', 94, '2022-11-04 14:38:27', NULL),
+(128, 'lDFGHmKAqWwYKqaHZGdXkSJhe6OKGsDUovtAHmUKMPc74HGWHzycmyVtNlER', 94, '2022-11-04 14:38:27', NULL),
+(129, 'cbrvVM07e4aCrN3ScjmSxsrkX8f9a7X33fE8fd40l0YVNTdrQyBf7yEwFGbm', 94, '2022-11-04 14:38:27', NULL),
+(130, 'FNBYs7WMSrQOGwzAIcGpZPJlnQfZiDM84RDvsdLqAgUBXsdmVZU2QqC4fz3H', 94, '2022-11-04 14:38:27', NULL),
+(131, 'SQLOwUYwnRnM2PgPSIhr7UTuo7KB2ChHz4tdx4YqXLWFluJHrgxffcg5hz0X', 94, '2022-11-04 14:38:36', NULL),
+(132, 'MybkrOrfLzN84rpOgpzfgKyeZQKUgNM54TO44zKFs9fq8fWoSXfGRoBwwIuK', 94, '2022-11-04 14:40:40', NULL),
+(133, 'G5xa4XPzKjZz5qkDGk3TNVkysTuBMfx6BVegkkOh8TgcyUHNl7LlGswpFD4o', 94, '2022-11-04 14:40:59', NULL),
+(134, 'XSaajuymGcDeNWFbxOdUvXsNZec0YUqcVsFbE1d1YlTc4cti8jmKFJhGMl6l', 94, '2022-11-04 14:41:17', NULL),
+(135, '0cd6M7L86koYRvaM8XAs5pcu1VuRVxCTQjBNM143zcQDydoQX1liFft3uguk', 94, '2022-11-04 14:41:58', NULL),
+(136, 'xNxemXp5LqcmerSmBhWW6epLSUAd3pYTudu614Y5sn8KIRQUpmaiVjwEjzlY', 94, '2022-11-07 13:50:23', NULL),
+(137, 'MPNAoPLiAdcKvWaCGK4aJLxlD1oCFcn8BpR1euTiYYwOVLhyPHG9jqIUkxbu', 94, '2022-11-07 14:24:36', NULL),
+(138, 'LraFWMZtIDvxJSqyph7d8MaWKWvKGpkO2f1wKcfc8Jdw52CdwRzS6R8ihp3M', 94, '2022-11-07 14:24:37', NULL),
+(139, 'Ta8Y48ecOLdcUTwAujiAZke0d4JCStNzCNqCSeAdTaRMZhHcRIo6OeqXVyYa', 94, '2022-11-07 14:24:45', NULL),
+(140, 'CEdgVE0N1sfx7TR6ospDS2j7xHChr6NdBcSIPPfac34yLt2elZLRvdb81Rkj', 94, '2022-11-07 14:24:47', NULL),
+(141, 'oafCrCk60YUW8iG7KpO9vOkH2VCvw7wrOfZyikJqMdxfkNOJ6sQhxJ3syyIW', 94, '2022-11-07 14:24:48', NULL),
+(142, '5vXn8A9liznFJMk70el0BQDBk3M8kE85UMOIjTP4UPxeaSAOCOC0ljVQeYd3', 94, '2022-11-07 14:27:40', NULL),
+(143, 'U4ENtbA3MFo78KuQo2d9FXGEebq3qsMaFtpDSASqBcMzxvOm1XN6ALojrRPA', 94, '2022-11-07 14:27:44', NULL),
+(144, 'UVvYi8UoMBN6sdcmbNZhq9Jw26Acl4dH24ZEMNSnelu2xg0jMyjbxpwsU6Ls', 94, '2022-11-07 14:28:58', NULL),
+(145, 'qaUaKM6lyKpacxN1OZnY4mOLcarwEeOSCrF8MZTRdUDSnjUSC9ncjq2MaVLV', 94, '2022-11-07 14:29:00', NULL),
+(146, 'TTjOAXl71h2mMPGY5OUCEO4d10OwAKlDBl9rBhLltrB64vijC0PnLjGf8rbv', 94, '2022-11-07 14:29:32', NULL),
+(147, '5m2soNmUdBIXcPzF9emxrTHYTuRK9u4DVYcfP7DXFdFzh5owsZ58ZQU3RJ9m', 94, '2022-11-07 14:30:30', NULL),
+(148, 'OZhUlDbtp0xOrn5L5FK0c1bvcZwTPGl2r7ymX1RiwYlDH3J5wIoYzTpAf0NL', 94, '2022-11-07 14:31:50', NULL),
+(149, 'z8e0HbAnIR4ABmApFg35iIDKvTJSXX7nBTM95imaHFdoKLhhNP6eHnfC6ZdH', 94, '2022-11-07 14:33:31', NULL),
+(150, 'UesczYAGPWVRfPBSbkP7VhIOg8Aio8CTq5BmXFz0xYbhwKqz0DY1Ony1fsra', 94, '2022-11-07 14:34:47', NULL),
+(151, 'tJFqVLJGONR8Zch8MLCnGoWpCNHIsGsqgvdoOSXMFThhzoqKTQhKJ2eXqoQn', 94, '2022-11-07 14:34:50', NULL),
+(152, 'F83eruiUMnLEklb6e9hpXXeVsz2GKngJ4SdWfUN0jJ3oLbzbnrJgLdBFzeCn', 94, '2022-11-07 14:34:51', NULL),
+(153, 'bd1CiLHlvR7g8e264c1LqbVVH4DShyOZoLYYHcjzsUUEgpBf8XO938lccWRD', 94, '2022-11-07 14:36:03', NULL),
+(155, 'UZZ7yUreOVvY5NZhR5LdnzCcccM39mFVlWphrMpOs2awiThFXVrwPKNBmiik', 94, '2022-11-08 10:19:10', NULL),
+(156, 'aWI7TXjRmlQyjAcF4dLO1r5KXAIxTgMVJkDT4p7YzwvvOWy5TNOmRXEJECoT', 94, '2022-11-10 07:41:37', NULL),
+(157, 'xuJ3C1tM2ihKUn3q9GnnNV68kRZ4UjWhz4IqvVkB6WhLHC6JsS5IRdYgYvVJ', 1, '2022-11-11 10:14:28', NULL),
+(158, 'z1N25Te8MynDx9WDcHKVv3RwE2v5pXOaOI54nvOa3W2WKoU82hZIG3pmdlBX', 1, '2022-11-11 10:20:51', NULL),
+(159, 'undefined', 0, '2022-11-14 07:57:07', NULL),
+(160, 'undefined', 0, '2022-11-14 07:59:13', NULL),
+(161, 'undefined', 0, '2022-11-14 08:00:46', NULL),
+(162, 'undefined', 0, '2022-11-14 08:01:48', NULL),
+(163, 'undefined', 0, '2022-11-14 08:02:08', NULL),
+(164, 'undefined', 0, '2022-11-14 08:02:54', NULL),
+(165, 'undefined', 13, '2022-11-14 08:07:18', NULL),
+(166, 'undefined', 17, '2022-11-14 08:43:23', NULL),
+(167, 'undefined', 18, '2022-11-14 08:50:45', NULL),
+(168, 'In8wuyMN7Z4noAs1LMlG72Hi6qan7CERSY3ATIxGcsXPVLkb8f0NseCCZ0YW', 1, '2022-11-14 09:06:06', NULL),
+(169, 'Z06LbCAfuMxaOEk5KZfszA7Mv4tKq6gZuF0wb2sBumehWYdIZY7ZahgYEgT8', 20, '2022-11-14 09:52:28', NULL),
+(170, '6s9w33u8r6yeyUSXPeTKTLVww94J7JOmXy3CxWKQEEWAAOQOO6i4UQ0U49lQ', 24, '2022-11-14 10:33:07', NULL),
+(171, 'vdcQbEm8w6FqYeRuGLlWmpLIRSdLbAmcRwEb3nvJpU9YpWatLTur4VJX8RPy', 26, '2022-11-14 10:35:27', NULL),
+(172, 'undefined', 26, '2022-11-14 10:35:27', NULL),
+(173, 'EzWrZk7XleGAjOcQQVtR4IakipF07xkOlxRf7Zradl9UWqYyUnbJiNIOwEMM', 26, '2022-11-14 10:35:57', NULL),
+(174, 'KGGM4fbrwYE7QpYO3g94hYghElirvGGUDx2JH2XxE5vrvxXKgWsK6mqhY6FC', 28, '2022-11-14 10:46:20', NULL),
+(175, 'r5QGMwr95kEuw0m0ebZ1sA4VUBTaL3tFhYJIbO5eklECrJe2j4UcerAS0tDK', 29, '2022-11-14 13:49:17', NULL),
+(176, 'undefined', 29, '2022-11-14 13:49:17', NULL),
+(177, 'ZF5e0SD8OmlnHmS7j1eckrTx0eVxwRG8kUhNGuYWw8Mfqa0Qo5Ec3iDzaV27', 31, '2022-11-14 14:10:20', NULL),
+(178, 'ZF5e0SD8OmlnHmS7j1eckrTx0eVxwRG8kUhNGuYWw8Mfqa0Qo5Ec3iDzaV27', 31, '2022-11-14 14:10:20', NULL),
+(179, 'wV3cnH9VOXGsZjtcQLipzKLPzXhhR9lfPrRTtglZ76iS8RbzfPGep0iXjDYr', 31, '2022-11-14 14:11:03', NULL),
+(180, 'S34I9jOBPKnKwT6vGRZVzDJKHxPoWGqaldl3Wqsm8saj9xBuRd1QlgvfbnwP', 0, '2022-11-14 14:15:47', NULL),
+(181, 'u8RVqMawqMhHqdl3xOX2cjyHpAbws4GoHgEbLk9iBas5QD5sOi8akAwnP8VE', 33, '2022-11-14 14:19:13', NULL),
+(182, 'u8RVqMawqMhHqdl3xOX2cjyHpAbws4GoHgEbLk9iBas5QD5sOi8akAwnP8VE', 33, '2022-11-14 14:19:13', NULL),
+(183, 'zbYs9CF6i1CfH9KdVTNpYrKQ8KcXz52CDFgykhTW2fzGFtuKo69lsw9B8btS', 34, '2022-11-14 14:19:57', NULL),
+(184, 'zbYs9CF6i1CfH9KdVTNpYrKQ8KcXz52CDFgykhTW2fzGFtuKo69lsw9B8btS', 34, '2022-11-14 14:19:57', NULL),
+(185, 'RXQgJT1yVKhgo5YIXTAtdgAAOnIY43how2Zb26eeM3QyWy0QXuZTy9ZqKB1W', 35, '2022-11-14 14:22:55', NULL),
+(186, 'RXQgJT1yVKhgo5YIXTAtdgAAOnIY43how2Zb26eeM3QyWy0QXuZTy9ZqKB1W', 35, '2022-11-14 14:22:55', NULL),
+(192, 'm526FQClmoynBD0Z8KKbpGia4fVpR8NofyC2lFOdaJmIFZB0GV0Ec11lLz3h', 31, '2022-11-14 14:43:52', NULL),
+(193, '94k4foIeGP5Rb1wVOplkxCD2DNZQaRcrqm5gkU4kmKuoO9ZjdnaskwkpUgC1', 37, '2022-11-15 08:33:52', NULL),
+(194, 'vPBwSIsZEH10h2tBE2JR0FNoNNSG1YAoZutNjVyCqs3EWGwazjEEzKXnZepV', 37, '2022-11-15 08:36:24', NULL),
+(195, 'LMZSVPyQl7QDGioQiWlVjYzu6oZQlDpumcgB4sMxr5Tlk7FLqcaZUHz5mTMG', 37, '2022-11-15 08:36:53', NULL),
+(196, 'sEqkYyW5aTAVBaugukmonlZ461xpu2kERLT9Mujj5lkEHHqs9aB7VFLmEVaL', 37, '2022-11-15 08:52:16', NULL),
+(197, '20zPdnB2WiE8Z2qJQ4hyCxt4pi2joIYXfQg4fFiL2kFTzwGrhm7EwkWQKNnw', 37, '2022-11-15 08:53:36', NULL),
+(198, 'trA2eSaoNzxyk2WcBjRS3mm1JUWga6oIBW3RsLOucKUa0sypVjOu4Q0YheMK', 37, '2022-11-15 08:54:03', NULL),
+(199, '6ZQ95jJBVdsH2q0j8gdBWKtaNuxU73eH91IDCfKDsyfApphU5g1Wf8487zqS', 37, '2022-11-15 08:54:13', NULL),
+(200, 'a196AusBCPyO57QiyabAlvcDXYeB3iXFABvclHa9XJP2Q3A8XQeEAGsHiea9', 37, '2022-11-15 08:55:37', NULL),
+(201, 'wUB6PQBBEopD0CdSUqAfKGl1FTi8r0yBmui197fEB88AN1MNKFjd3YrR2zft', 37, '2022-11-15 08:55:58', NULL),
+(202, 'LSRxaxSUuC9vrg93SAE0DGpLp08UwHihCkfXgXRRKLtdsQ4t71QgDPPeOpI2', 37, '2022-11-15 08:59:33', NULL),
+(203, 'UERLWxkmLAEFopqRx24KnzBjzbLCsiKNZ8VLN3XajBkZvskppSJrhyxE1Sym', 39, '2022-11-15 09:25:15', NULL),
+(204, 'UERLWxkmLAEFopqRx24KnzBjzbLCsiKNZ8VLN3XajBkZvskppSJrhyxE1Sym', 39, '2022-11-15 09:25:15', NULL),
+(205, 'KixFpn1NAYdD5p6E8JuQvwSFGyhoCgvNEAALihfaQ6MvsozXTfb1Ua328fht', 40, '2022-11-16 12:48:51', NULL),
+(206, 'KixFpn1NAYdD5p6E8JuQvwSFGyhoCgvNEAALihfaQ6MvsozXTfb1Ua328fht', 40, '2022-11-16 12:48:51', NULL),
+(207, 't3mCVii0fFilHgsnzAap1caFJPHflSn1pgdw6mleaXCZbLx6bTewh2GfUBMA', 40, '2022-11-16 12:49:05', NULL),
+(208, 'v1tP9aUHSNj12lCCkOBX6x1DUmSbwEGalYiiq56x9v7FgczgnL9MSPNjD2Sf', 40, '2022-11-16 12:49:45', NULL),
+(209, 'IMa30BdTKydouFcKgfjIIKKyY8WqHvOfjsOU6HykWocs5KokSgoSvWbhaDWY', 40, '2022-11-16 12:54:00', NULL),
+(210, 'lxyBTXS9ykHtBrUY0KtG3hAcG5N3qhmkyExn4eFtuZXQkI38BKXf2nB594OL', 37, '2022-11-16 13:02:11', NULL),
+(211, '6v3LBtjlKGRmnSzDITafRH2XScwvA10y9OyCIeLXVqx9gpDjoJrs9tt8WhiP', 40, '2022-11-16 13:14:26', NULL),
+(212, 'ycKxf9aLEjvoJYwfGisM4ibZLr7KViAIA9lGpKdzm3oZTuctE9ZSPXLkHWUx', 40, '2022-11-16 13:19:35', NULL),
+(213, 'crC5RuH1SGwIzfWgq368FBLfqr4flxxJ5nTeBniX9MxmXSW2tPz0zk2sV3Si', 40, '2022-11-16 14:09:20', NULL),
+(214, 'M6R5BrSeHkdUN5Jubxy0uPvLMrxygVXISXNECoNFa4JPS8oNHm5l5jJMu6n2', 41, '2022-11-16 14:15:21', NULL),
+(215, 'M6R5BrSeHkdUN5Jubxy0uPvLMrxygVXISXNECoNFa4JPS8oNHm5l5jJMu6n2', 41, '2022-11-16 14:15:21', NULL),
+(216, 'p3x3aY68OsL2Mi36PsrTWCxRmBMrGEyoo9EWY9t7QWphI6H23XFgHYsq13si', 41, '2022-11-16 14:15:35', NULL),
+(217, 'dNx4x8aDYoKgNQt8wFL3ved4saLkXbflRzHyMWgyfXeametWjrhM40gZRnhZ', 43, '2022-11-16 14:18:30', NULL),
+(218, 'dNx4x8aDYoKgNQt8wFL3ved4saLkXbflRzHyMWgyfXeametWjrhM40gZRnhZ', 43, '2022-11-16 14:18:30', NULL),
+(219, '3vRGP57wTOZafOsQItCdkDIs2qSOfTHxHRRKshpcN0xEVPsTKGMAdlvwWsr7', 43, '2022-11-16 14:18:52', NULL),
+(220, 'pqu5UiHTEGD4dxufwowLraCKSHkEFgbs3tvws2MG108xwH9CKDrHOXhbvHu8', 43, '2022-11-16 14:21:44', NULL),
+(221, 'jVn0Anih4ryQ9HnjG39K6gaUBRjFdohZH2HhnPEqiM3iAVd2dKd3My573bfT', 43, '2022-11-16 14:22:19', NULL),
+(222, 'sFk41mUcvAu94l5L3YbNVvSW9BwoRrYqCKesgUqotWkrIAVQS6W89Nes51nh', 43, '2022-11-17 06:48:51', NULL),
+(223, '3zi2pQfUxZtzqmJxalfaFHaoarJCMBJGOd2beBW3rnYk9yAOKpGCrnKb29KN', 43, '2022-11-17 06:49:04', NULL),
+(224, 'GqKJeRWJY1TAKAdkwGTVst2GUBMqNCqcan64cA7Rgzzk6lIpL82cbeq2kD9x', 37, '2022-11-17 11:47:49', NULL),
+(225, 'VxLjPqjN4E6XWQRakSWalHl6xqMCxknKhIOdGLiB2ZDzqGmH78KTsqVJhdsd', 43, '2022-11-21 09:36:51', NULL),
+(226, 'SMgddqJL10tlwrQTTrIMjZkrf8uJXhs70wE9pcBBCSOyIuqYmPTWzx4qtwoK', 43, '2022-11-23 13:53:45', NULL),
+(227, 'Q84Q0rIlVCk671BFqoivPg3Oqtvj1oRGvUWRwYmnWjbWALPI2brhhDzzDhTY', 43, '2022-11-23 14:26:45', NULL),
+(228, 'jUgObzbP9K7yduoAN2AbaTGsdROjxl4EQbXmGilcu0qPhN7h6gnIpDhMYvXv', 43, '2022-11-25 14:33:59', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `company_id` int(55) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `codes`
+--
+
+CREATE TABLE `codes` (
+  `id` int(11) NOT NULL,
+  `email` varchar(55) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `code` varchar(11) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `codes`
+--
+
+INSERT INTO `codes` (`id`, `email`, `code`, `created_at`) VALUES
+(1, 'tutrongtien198213@gmail.com', '463621', '2022-10-21 18:39:19'),
+(2, 'tutrongtien1996787878@gmail.com', '943286', '2022-10-21 19:00:55'),
+(3, 'quocbao@gmail.com', '815493', '2022-10-21 19:12:01'),
+(4, 'quocbao@gmail.com', '157514', '2022-11-16 18:33:28'),
+(5, 'quocbao@gmail.com', '607873', '2022-11-16 18:34:55'),
+(6, 'admin88@gmail.com', '933990', '2022-11-16 19:55:01');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `companies`
+--
+
+CREATE TABLE `companies` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 NOT NULL,
+  `email` varchar(55) CHARACTER SET latin1 DEFAULT NULL,
+  `phone_number` varchar(55) CHARACTER SET latin1 DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `companies`
+--
+
+INSERT INTO `companies` (`id`, `name`, `email`, `phone_number`, `logo`, `created_at`, `updated_at`) VALUES
+(1, 'SAMSUNG', 'samsung@gmail', '111111111', 'samsung.jpg', '2022-09-08 10:11:13', '2022-09-22 17:34:16'),
+(2, 'APPLE', 'apple@gmail', '222222222', 'apple.jpg', '2022-09-08 10:11:13', '2022-09-22 17:34:16'),
+(3, 'SONY', 'sony@gmail', '333333333', 'sony.jpg', '2022-09-08 10:11:38', '2022-09-22 17:34:16'),
+(4, 'LG', 'lg@gmail', '444444444', 'lg.jpg', '2022-09-08 10:11:38', '2022-09-22 17:34:16'),
+(5, 'HUYNDAI', 'huyndai@gmail', '555555555', 'huyndai.jpg', '2022-09-08 10:51:53', '2022-09-22 17:34:16'),
+(6, 'TOMOROTA', 'tomorota@gmail', '666666666', 'tomorota.jpg', '2022-09-08 10:51:53', '2022-09-22 17:34:16'),
+(8, 'xiaomi4', NULL, NULL, NULL, '2022-11-14 14:21:23', NULL),
+(9, 'xiaomi7', NULL, NULL, NULL, '2022-11-14 14:49:51', NULL),
+(11, 'xiaomi9', NULL, NULL, NULL, '2022-11-14 14:56:39', NULL),
+(12, 'xiaomi11', NULL, NULL, NULL, '2022-11-14 14:57:07', NULL),
+(14, 'xiaomi76126312312', NULL, NULL, NULL, '2022-11-14 14:59:13', NULL),
+(15, 'xiaomi67', NULL, NULL, NULL, '2022-11-14 15:00:46', NULL),
+(16, 'xiaomi673', NULL, NULL, NULL, '2022-11-14 15:01:48', NULL),
+(17, 'xiaomi6733', NULL, NULL, NULL, '2022-11-14 15:02:08', NULL),
+(18, 'xiaomi67333', NULL, NULL, NULL, '2022-11-14 15:02:54', NULL),
+(19, 'xiaomi673133', NULL, NULL, NULL, '2022-11-14 15:07:18', NULL),
+(23, 'xiaomi6731787833', NULL, NULL, NULL, '2022-11-14 15:43:23', NULL),
+(24, 'iphone14', NULL, NULL, NULL, '2022-11-14 15:50:45', NULL),
+(25, 'admin_udo', NULL, NULL, NULL, '2022-11-14 17:17:14', NULL),
+(27, 'admin_udo2', NULL, NULL, NULL, '2022-11-14 17:28:43', NULL),
+(28, 'admin_udo3', NULL, NULL, NULL, '2022-11-14 17:33:07', NULL),
+(30, 'admin_udo6', NULL, NULL, NULL, '2022-11-14 17:35:27', NULL),
+(31, 'Udo_admin10', NULL, NULL, NULL, '2022-11-14 20:49:17', NULL),
+(33, 'Udo_admin11', NULL, NULL, NULL, '2022-11-14 21:10:20', NULL),
+(34, 'Udo_admin14', NULL, NULL, NULL, '2022-11-14 21:19:13', NULL),
+(35, 'tuphuongdanh', NULL, NULL, NULL, '2022-11-14 21:19:57', NULL),
+(36, 'danh12', NULL, NULL, NULL, '2022-11-14 21:22:55', NULL),
+(37, '0349194952', NULL, NULL, NULL, '2022-11-14 21:25:35', NULL),
+(38, 'admin9000', NULL, NULL, NULL, '2022-11-15 16:25:15', NULL),
+(39, 'ADMIN88', NULL, NULL, NULL, '2022-11-16 19:48:51', NULL),
+(40, 'ADMIN8888', NULL, NULL, NULL, '2022-11-16 21:15:21', NULL),
+(42, 'ADMIN888', NULL, NULL, NULL, '2022-11-16 21:18:30', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `customers`
+--
+
+CREATE TABLE `customers` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 NOT NULL,
+  `phone_number` varchar(55) CHARACTER SET latin1 DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `company_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `customers`
+--
+
+INSERT INTO `customers` (`id`, `name`, `phone_number`, `address`, `created_at`, `updated_at`, `company_id`) VALUES
+(1, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:48:38', 1),
+(2, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(3, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(4, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(5, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(6, 'cutomers_samsung', '0932932123', 'undefined', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(9, 'cutomers_samsung', '0902192371', '139 le dinh duong', '2022-09-05 19:36:55', '2022-09-22 17:54:11', 1),
+(10, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 22:54:37', '2022-09-22 17:54:01', 2),
+(11, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 22:55:16', '2022-09-22 17:54:01', 2),
+(12, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 22:56:01', '2022-09-22 17:54:01', 2),
+(13, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 22:56:08', '2022-09-22 17:54:01', 2),
+(14, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 22:56:27', '2022-09-22 17:54:01', 2),
+(15, 'cutomers_apple', '0902182131', '137 le dinh duong', '2022-09-06 23:02:12', '2022-09-22 17:54:01', 2),
+(16, 'cutomers_apple', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:10:05', '2022-09-22 17:54:01', 2),
+(17, 'cutomers_apple', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:17:27', '2022-09-22 17:54:01', 2),
+(18, 'cutomers_apple', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:18:08', '2022-09-22 17:54:01', 2),
+(19, 'cutomers_apple', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:33:29', '2022-09-22 17:54:01', 2),
+(20, 'cutomers_sony', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:33:55', '2022-09-22 17:53:53', 3),
+(21, 'cutomers_sony', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:34:23', '2022-09-22 17:53:53', 3),
+(22, 'cutomers_sony', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:39:42', '2022-09-22 17:53:53', 3),
+(23, 'cutomers_sony', '0902dasdasd182131', '137dasd le dinh duong', '2022-09-16 17:39:49', '2022-09-22 17:53:53', 3),
+(24, 'cutomers_sony', '0902182131', '137 le dinh duong', '2022-09-16 18:07:18', '2022-09-22 17:53:53', 3),
+(25, 'cutomers_sony', '0902182131', '137 le dinh duong', '2022-09-16 18:07:26', '2022-09-22 17:53:53', 3),
+(26, 'cutomers_sony', '0902182131', '137 le dinhy89u89 duong', '2022-09-16 18:07:39', '2022-09-22 17:53:53', 3),
+(27, 'cutomers_sony', '0902182131', '137 le dinh duong', '2022-09-17 19:59:16', '2022-09-22 17:53:53', 3),
+(28, 'cutomers_sony', '0902182131', '137 le dinh duong', '2022-09-17 20:15:02', '2022-09-22 17:53:53', 3),
+(29, 'cutomers_sony', '0902182131', '137 le dinh duong', '2022-09-17 20:15:04', '2022-09-22 17:53:53', 3),
+(30, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:05', '2022-09-22 17:53:43', 4),
+(31, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:06', '2022-09-22 17:53:43', 4),
+(32, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:07', '2022-09-22 17:53:43', 4),
+(33, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:08', '2022-09-22 17:53:43', 4),
+(34, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:09', '2022-09-22 17:53:43', 4),
+(35, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:10', '2022-09-22 17:53:43', 4),
+(36, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:10', '2022-09-22 17:53:43', 4),
+(37, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:11', '2022-09-22 17:53:43', 4),
+(38, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:12', '2022-09-22 17:53:43', 4),
+(39, 'cutomers_lg', '0902182131', '137 le dinh duong', '2022-09-17 20:15:12', '2022-09-22 17:53:43', 4),
+(40, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 21:57:52', '2022-09-22 17:53:33', 5),
+(41, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 21:57:53', '2022-09-22 17:53:33', 5),
+(42, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 21:57:54', '2022-09-22 17:53:33', 5),
+(43, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 21:57:56', '2022-09-22 17:53:33', 5),
+(44, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 21:58:48', '2022-09-22 17:53:33', 5),
+(45, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 22:00:45', '2022-09-22 17:53:33', 5),
+(46, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 22:00:46', '2022-09-22 17:53:33', 5),
+(47, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 22:00:47', '2022-09-22 17:53:33', 5),
+(48, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 22:03:15', '2022-09-22 17:53:33', 5),
+(49, 'cutomers_huyndai', '0902182131', '137 le dinh duong', '2022-09-19 22:03:17', '2022-09-22 17:53:33', 5),
+(50, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-19 22:03:28', '2022-09-22 17:53:19', 6),
+(51, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-19 22:03:51', '2022-09-22 17:53:19', 6),
+(52, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-19 22:21:27', '2022-09-22 17:53:19', 6),
+(53, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-19 22:22:52', '2022-09-22 17:53:19', 6),
+(54, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-19 22:23:37', '2022-09-22 17:53:19', 6),
+(55, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-20 20:22:03', '2022-09-22 17:53:19', 6),
+(56, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-20 20:23:55', '2022-09-22 17:53:19', 6),
+(57, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-20 20:24:35', '2022-09-22 17:53:19', 6),
+(58, 'cutomers_motorota', '0902182131', '137 le dinh duong', '2022-09-20 20:25:38', '2022-09-22 17:53:19', 6),
+(60, 'cutomers_samsung', '0902182131', '137 le dinh duong', '2022-09-20 20:31:52', '2022-09-22 17:54:11', 1);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE `orders` (
+  `id` int(11) NOT NULL,
+  `company_id` int(11) DEFAULT NULL,
+  `customer_id` int(11) DEFAULT NULL,
+  `total` float DEFAULT NULL,
+  `status` enum('PENDING','PAID','CANCELLED') CHARACTER SET latin1 DEFAULT 'PENDING',
+  `code` varchar(45) CHARACTER SET latin1 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `company_id`, `customer_id`, `total`, `status`, `code`, `created_at`, `updated_at`) VALUES
+(50, 1, 1, 20000, 'PENDING', NULL, '2022-09-22 18:50:20', NULL),
+(51, 1, 2, 20000, 'PENDING', NULL, '2022-09-22 18:51:08', NULL),
+(52, 1, 5, 20000, 'PENDING', NULL, '2022-09-22 18:51:17', NULL),
+(53, 1, 4, 20000, 'PENDING', NULL, '2022-09-22 18:51:22', NULL),
+(54, 1, 20, 20000, 'PENDING', NULL, '2022-09-22 18:51:28', NULL),
+(55, 2, 101, 500, 'PENDING', NULL, '2022-09-22 18:53:12', '2022-10-17 13:28:34'),
+(56, 2, 6, 20000, 'PENDING', NULL, '2022-09-22 18:53:20', NULL),
+(57, 2, 6, 20000, 'PENDING', NULL, '2022-09-22 18:53:26', NULL),
+(58, 2, 6, 20000, 'PENDING', NULL, '2022-09-22 18:53:27', NULL),
+(59, 2, 6, 20000, 'PENDING', NULL, '2022-09-22 18:53:27', NULL),
+(60, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:34:12', NULL),
+(61, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:37:48', NULL),
+(62, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:39:04', NULL),
+(63, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:40:32', NULL),
+(64, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:44:57', NULL),
+(65, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:45:16', NULL),
+(66, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:45:34', NULL),
+(67, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:48:19', NULL),
+(68, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:49:27', NULL),
+(69, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:49:45', NULL),
+(70, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:50:07', NULL),
+(71, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:50:08', NULL),
+(72, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:50:09', NULL),
+(73, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:50:10', NULL),
+(74, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:53:22', NULL),
+(75, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:54:03', NULL),
+(76, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:54:05', NULL),
+(77, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:54:06', NULL),
+(78, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:54:07', NULL),
+(79, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:54:59', NULL),
+(80, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:55:24', NULL),
+(81, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:55:43', NULL),
+(82, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:55:44', NULL),
+(83, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:55:46', NULL),
+(84, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:57:46', NULL),
+(85, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:57:47', NULL),
+(86, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:57:53', NULL),
+(87, 2, 10, 20000, 'PENDING', NULL, '2022-09-22 20:57:54', NULL),
+(88, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:06:52', NULL),
+(89, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:08:37', NULL),
+(90, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:14:49', NULL),
+(91, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:16:05', NULL),
+(92, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:19:01', NULL),
+(93, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:20:05', NULL),
+(94, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:21:05', NULL),
+(95, 2, 10, 20000, 'PENDING', NULL, '2022-09-23 12:21:50', NULL),
+(96, 1, 3, 500, 'PENDING', NULL, '2022-10-13 10:42:57', NULL),
+(98, 2, 4, 78, 'PENDING', NULL, '2022-10-13 11:04:30', NULL),
+(99, 2, 0, 20000, 'PENDING', NULL, '2022-10-13 11:58:28', NULL),
+(100, 2, 0, 20000, 'PENDING', NULL, '2022-10-13 11:59:05', NULL),
+(101, 2, 10, 500000000, 'PENDING', NULL, '2022-10-13 12:00:52', '2022-10-13 12:51:18'),
+(102, 33, 0, 36000000, 'PENDING', NULL, '2022-11-14 22:13:42', NULL),
+(103, 33, 0, 36000000, 'PENDING', NULL, '2022-11-14 22:16:28', NULL),
+(104, 33, 0, 36000000, 'PENDING', NULL, '2022-11-14 22:19:03', NULL),
+(105, 33, NULL, 36000000, 'PENDING', NULL, '2022-11-14 22:23:10', NULL),
+(106, 42, NULL, 36000000, 'PENDING', NULL, '2022-11-22 20:28:33', NULL),
+(107, 42, NULL, 36000000, 'PENDING', NULL, '2022-11-23 21:12:25', NULL),
+(108, 42, NULL, 800005, 'PENDING', NULL, '2022-11-23 21:42:32', NULL),
+(109, 42, NULL, 800005, 'PENDING', NULL, '2022-11-23 21:43:47', NULL),
+(110, 42, NULL, 800005, 'PENDING', NULL, '2022-11-23 21:46:58', NULL),
+(111, 42, NULL, 600005, 'PENDING', NULL, '2022-11-23 21:54:38', NULL),
+(112, 42, NULL, 500000, 'PENDING', NULL, '2022-11-23 21:54:51', NULL),
+(113, 42, NULL, 600005, 'PENDING', NULL, '2022-11-23 21:57:00', NULL),
+(114, 42, NULL, 22900000, 'PENDING', NULL, '2022-11-23 22:05:56', NULL),
+(115, 42, NULL, 23600000, 'PENDING', NULL, '2022-11-24 14:56:53', NULL),
+(116, 42, NULL, 23600000, 'PENDING', NULL, '2022-11-25 13:57:03', NULL),
+(117, 42, NULL, 23300000, 'PENDING', NULL, '2022-11-25 13:57:25', NULL),
+(118, 42, NULL, 30600000, 'PENDING', 'company733731', '2022-11-25 15:00:35', NULL),
+(119, 42, NULL, 45600000, 'PENDING', 'company879382', '2022-11-25 15:04:10', NULL),
+(120, 42, NULL, 23600000, 'PENDING', 'company65406', '2022-11-25 21:34:29', NULL),
+(121, 42, NULL, 31600000, 'PENDING', 'com-276859', '2022-11-26 11:36:38', NULL),
+(122, 42, NULL, 105400000, 'PENDING', 'com-382711', '2022-11-26 11:39:34', NULL),
+(123, 42, NULL, 50400000, 'PENDING', 'com-400665', '2022-11-26 11:49:42', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `order_items`
+--
+
+CREATE TABLE `order_items` (
+  `id` int(11) NOT NULL,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` float DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`, `created_at`, `updated_at`) VALUES
+(81, 50, 97, 2, 10000, '2022-09-22 18:50:20', NULL),
+(82, 50, 98, 7, 100000, '2022-09-22 18:50:20', NULL),
+(83, 51, 99, 2, 10000, '2022-09-22 18:51:08', NULL),
+(84, 51, 98, 7, 100000, '2022-09-22 18:51:08', NULL),
+(85, 52, 99, 2, 10000, '2022-09-22 18:51:17', NULL),
+(86, 52, 98, 7, 100000, '2022-09-22 18:51:17', NULL),
+(87, 53, 99, 2, 10000, '2022-09-22 18:51:22', NULL),
+(88, 53, 98, 7, 100000, '2022-09-22 18:51:22', NULL),
+(89, 54, 99, 2, 10000, '2022-09-22 18:51:28', NULL),
+(90, 54, 98, 7, 100000, '2022-09-22 18:51:28', NULL),
+(91, 55, 106, 5, 10000, '2022-09-22 18:53:12', '2022-09-25 18:46:15'),
+(92, 55, 105, 10, 900000, '2022-09-22 18:53:12', '2022-09-25 18:46:15'),
+(93, 56, 106, 2, 10000, '2022-09-22 18:53:20', NULL),
+(94, 56, 107, 7, 100000, '2022-09-22 18:53:20', NULL),
+(95, 57, 106, 2, 10000, '2022-09-22 18:53:26', NULL),
+(96, 57, 107, 7, 100000, '2022-09-22 18:53:26', NULL),
+(97, 58, 106, 2, 10000, '2022-09-22 18:53:27', NULL),
+(98, 58, 107, 7, 100000, '2022-09-22 18:53:27', NULL),
+(99, 59, 106, 2, 10000, '2022-09-22 18:53:27', NULL),
+(100, 59, 107, 7, 100000, '2022-09-22 18:53:27', NULL),
+(101, 60, 106, 2, 10000, '2022-09-22 20:34:12', NULL),
+(102, 60, 107, 7, 100000, '2022-09-22 20:34:12', NULL),
+(103, 61, 106, 2, 10000, '2022-09-22 20:37:48', NULL),
+(104, 61, 107, 7, 100000, '2022-09-22 20:37:48', NULL),
+(105, 62, 106, 2, 10000, '2022-09-22 20:39:04', NULL),
+(106, 62, 107, 7, 100000, '2022-09-22 20:39:04', NULL),
+(107, 63, 106, 2, 10000, '2022-09-22 20:40:32', NULL),
+(108, 63, 107, 7, 100000, '2022-09-22 20:40:32', NULL),
+(109, 64, 106, 2, 10000, '2022-09-22 20:44:57', NULL),
+(110, 64, 107, 7, 100000, '2022-09-22 20:44:57', NULL),
+(111, 65, 106, 2, 10000, '2022-09-22 20:45:16', NULL),
+(112, 65, 107, 7, 100000, '2022-09-22 20:45:16', NULL),
+(113, 66, 106, 2, 10000, '2022-09-22 20:45:34', NULL),
+(114, 66, 107, 7, 100000, '2022-09-22 20:45:34', NULL),
+(115, 67, 106, 2, 10000, '2022-09-22 20:48:19', NULL),
+(116, 67, 107, 7, 100000, '2022-09-22 20:48:19', NULL),
+(117, 68, 106, 2, 10000, '2022-09-22 20:49:27', NULL),
+(118, 68, 107, 7, 100000, '2022-09-22 20:49:27', NULL),
+(119, 69, 106, 2, 10000, '2022-09-22 20:49:45', NULL),
+(120, 69, 107, 7, 100000, '2022-09-22 20:49:45', NULL),
+(121, 70, 106, 2, 10000, '2022-09-22 20:50:07', NULL),
+(122, 70, 107, 7, 100000, '2022-09-22 20:50:07', NULL),
+(123, 71, 106, 2, 10000, '2022-09-22 20:50:08', NULL),
+(124, 71, 107, 7, 100000, '2022-09-22 20:50:08', NULL),
+(125, 72, 106, 2, 10000, '2022-09-22 20:50:09', NULL),
+(126, 72, 107, 7, 100000, '2022-09-22 20:50:09', NULL),
+(127, 73, 106, 2, 10000, '2022-09-22 20:50:10', NULL),
+(128, 73, 107, 7, 100000, '2022-09-22 20:50:10', NULL),
+(129, 74, 106, 2, 10000, '2022-09-22 20:53:22', NULL),
+(130, 74, 107, 7, 100000, '2022-09-22 20:53:22', NULL),
+(131, 75, 106, 2, 10000, '2022-09-22 20:54:03', NULL),
+(132, 75, 107, 7, 100000, '2022-09-22 20:54:03', NULL),
+(133, 76, 106, 2, 10000, '2022-09-22 20:54:05', NULL),
+(134, 76, 107, 7, 100000, '2022-09-22 20:54:05', NULL),
+(135, 77, 106, 2, 10000, '2022-09-22 20:54:06', NULL),
+(136, 77, 107, 7, 100000, '2022-09-22 20:54:06', NULL),
+(137, 78, 106, 2, 10000, '2022-09-22 20:54:07', NULL),
+(138, 78, 107, 7, 100000, '2022-09-22 20:54:07', NULL),
+(139, 80, 106, 2, 10000, '2022-09-22 20:55:24', NULL),
+(140, 80, 107, 7, 100000, '2022-09-22 20:55:24', NULL),
+(141, 81, 106, 2, 10000, '2022-09-22 20:55:43', NULL),
+(142, 81, 107, 7, 100000, '2022-09-22 20:55:43', NULL),
+(143, 82, 106, 2, 10000, '2022-09-22 20:55:44', NULL),
+(144, 82, 107, 7, 100000, '2022-09-22 20:55:44', NULL),
+(145, 83, 106, 2, 10000, '2022-09-22 20:55:46', NULL),
+(146, 83, 107, 7, 100000, '2022-09-22 20:55:46', NULL),
+(147, 84, 106, 2, 10000, '2022-09-22 20:57:46', NULL),
+(148, 84, 107, 7, 100000, '2022-09-22 20:57:46', NULL),
+(149, 85, 106, 2, 10000, '2022-09-22 20:57:47', NULL),
+(150, 85, 107, 7, 100000, '2022-09-22 20:57:47', NULL),
+(151, 86, 0, 2, 10000, '2022-09-22 20:57:53', NULL),
+(152, 86, 107, 7, 100000, '2022-09-22 20:57:53', NULL),
+(153, 87, 0, 2, 10000, '2022-09-22 20:57:54', NULL),
+(154, 87, 107, 7, 100000, '2022-09-22 20:57:54', NULL),
+(155, 88, 0, 2, 10000, '2022-09-23 12:06:52', NULL),
+(156, 88, 107, 7, 100000, '2022-09-23 12:06:52', NULL),
+(157, 89, 7, 2, 10000, '2022-09-23 12:08:37', NULL),
+(158, 89, 107, 7, 100000, '2022-09-23 12:08:37', NULL),
+(159, 90, 7, 2, 10000, '2022-09-23 12:14:49', NULL),
+(160, 90, 107, 7, 100000, '2022-09-23 12:14:49', NULL),
+(161, 91, 7, 2, 10000, '2022-09-23 12:16:05', NULL),
+(162, 91, 107, 7, 100000, '2022-09-23 12:16:05', NULL),
+(163, 92, 7, 2, 10000, '2022-09-23 12:19:01', NULL),
+(164, 92, 107, 7, 100000, '2022-09-23 12:19:01', NULL),
+(165, 93, 7, 2, 10000, '2022-09-23 12:20:05', NULL),
+(166, 93, 107, 7, 100000, '2022-09-23 12:20:05', NULL),
+(167, 94, 7, 2, 10000, '2022-09-23 12:21:05', NULL),
+(168, 94, 107, 7, 100000, '2022-09-23 12:21:05', NULL),
+(169, 95, 7, 2, 10000, '2022-09-23 12:21:50', NULL),
+(170, 95, 107, 7, 100000, '2022-09-23 12:21:50', NULL),
+(171, 99, 100, 2, 10000, '2022-10-13 11:58:28', NULL),
+(172, 99, 101, 7, 100000, '2022-10-13 11:58:28', NULL),
+(173, 100, 100, 2, 10000, '2022-10-13 11:59:05', NULL),
+(174, 100, 101, 7, 100000, '2022-10-13 11:59:05', NULL),
+(175, 101, 100, 2, 10000, '2022-10-13 12:00:53', NULL),
+(176, 101, 101, 7, 100000, '2022-10-13 12:00:53', NULL),
+(177, 102, 148, 1, 14000000, '2022-11-14 22:13:42', NULL),
+(178, 102, 149, 1, 22000000, '2022-11-14 22:13:42', NULL),
+(179, 103, 148, 1, 14000000, '2022-11-14 22:16:28', NULL),
+(180, 103, 149, 1, 22000000, '2022-11-14 22:16:28', NULL),
+(181, 104, 148, 1, 14000000, '2022-11-14 22:19:03', NULL),
+(182, 104, 149, 1, 22000000, '2022-11-14 22:19:03', NULL),
+(183, 105, 148, 1, 14000000, '2022-11-14 22:23:10', NULL),
+(184, 105, 149, 1, 22000000, '2022-11-14 22:23:10', NULL),
+(185, 106, 148, 1, 14000000, '2022-11-22 20:28:33', NULL),
+(186, 106, 149, 1, 22000000, '2022-11-22 20:28:33', NULL),
+(187, 107, 148, 1, 14000000, '2022-11-23 21:12:25', NULL),
+(188, 107, 149, 1, 22000000, '2022-11-23 21:12:25', NULL),
+(189, 108, 157, 1, 300000, '2022-11-23 21:42:32', NULL),
+(190, 108, 158, 1, 300005, '2022-11-23 21:42:32', NULL),
+(191, 108, 156, 1, 200000, '2022-11-23 21:42:32', NULL),
+(192, 109, 157, 1, 300000, '2022-11-23 21:43:47', NULL),
+(193, 109, 158, 1, 300005, '2022-11-23 21:43:47', NULL),
+(194, 109, 156, 1, 200000, '2022-11-23 21:43:47', NULL),
+(195, 110, 157, 1, 300000, '2022-11-23 21:46:58', NULL),
+(196, 110, 158, 1, 300005, '2022-11-23 21:46:58', NULL),
+(197, 110, 156, 1, 200000, '2022-11-23 21:46:58', NULL),
+(198, 111, 157, 1, 300000, '2022-11-23 21:54:38', NULL),
+(199, 111, 158, 1, 300005, '2022-11-23 21:54:38', NULL),
+(200, 112, 157, 1, 300000, '2022-11-23 21:54:51', NULL),
+(201, 112, 156, 1, 200000, '2022-11-23 21:54:51', NULL),
+(202, 113, 157, 1, 300000, '2022-11-23 21:57:00', NULL),
+(203, 113, 158, 1, 300005, '2022-11-23 21:57:00', NULL),
+(204, 114, 157, 1, 300000, '2022-11-23 22:05:56', NULL),
+(205, 114, 154, 1, 22000000, '2022-11-23 22:05:56', NULL),
+(206, 114, 158, 2, 300005, '2022-11-23 22:05:56', NULL),
+(207, 115, 158, 1, 300005, '2022-11-24 14:56:53', NULL),
+(208, 115, 157, 1, 300000, '2022-11-24 14:56:53', NULL),
+(209, 115, 154, 1, 22000000, '2022-11-24 14:56:53', NULL),
+(210, 115, 155, 1, 1000000, '2022-11-24 14:56:53', NULL),
+(211, 116, 154, 1, 22000000, '2022-11-25 13:57:03', NULL),
+(212, 116, 155, 1, 1000000, '2022-11-25 13:57:03', NULL),
+(213, 116, 158, 1, 300005, '2022-11-25 13:57:03', NULL),
+(214, 116, 157, 1, 300000, '2022-11-25 13:57:03', NULL),
+(215, 117, 154, 1, 22000000, '2022-11-25 13:57:25', NULL),
+(216, 117, 155, 1, 1000000, '2022-11-25 13:57:25', NULL),
+(217, 117, 158, 1, 300005, '2022-11-25 13:57:25', NULL),
+(218, 118, 157, 1, 300000, '2022-11-25 15:00:35', NULL),
+(219, 118, 158, 1, 300005, '2022-11-25 15:00:35', NULL),
+(220, 118, 161, 1, 8000000, '2022-11-25 15:00:35', NULL),
+(221, 118, 154, 1, 22000000, '2022-11-25 15:00:35', NULL),
+(222, 119, 154, 2, 22000000, '2022-11-25 15:04:10', NULL),
+(223, 119, 155, 1, 1000000, '2022-11-25 15:04:10', NULL),
+(224, 119, 158, 1, 300005, '2022-11-25 15:04:10', NULL),
+(225, 119, 157, 1, 300000, '2022-11-25 15:04:10', NULL),
+(226, 120, 155, 1, 1000000, '2022-11-25 21:34:29', NULL),
+(227, 120, 154, 1, 22000000, '2022-11-25 21:34:29', NULL),
+(228, 120, 157, 1, 300000, '2022-11-25 21:34:29', NULL),
+(229, 120, 158, 1, 300005, '2022-11-25 21:34:29', NULL),
+(230, 121, 154, 1, 22000000, '2022-11-26 11:36:38', NULL),
+(231, 121, 155, 1, 1000000, '2022-11-26 11:36:38', NULL),
+(232, 121, 157, 1, 300000, '2022-11-26 11:36:38', NULL),
+(233, 121, 158, 1, 300005, '2022-11-26 11:36:38', NULL),
+(234, 121, 161, 1, 8000000, '2022-11-26 11:36:38', NULL),
+(235, 122, 154, 4, 22000000, '2022-11-26 11:39:34', NULL),
+(236, 122, 155, 2, 1000000, '2022-11-26 11:39:34', NULL),
+(237, 122, 158, 8, 300005, '2022-11-26 11:39:34', NULL),
+(238, 122, 153, 1, 13000000, '2022-11-26 11:39:34', NULL),
+(239, 123, 154, 1, 22000000, '2022-11-26 11:49:42', NULL),
+(240, 123, 155, 1, 1000000, '2022-11-26 11:49:42', NULL),
+(241, 123, 158, 1, 300005, '2022-11-26 11:49:42', NULL),
+(242, 123, 157, 1, 300000, '2022-11-26 11:49:42', NULL),
+(243, 123, 153, 2, 13000000, '2022-11-26 11:49:42', NULL),
+(244, 123, 156, 4, 200000, '2022-11-26 11:49:42', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 NOT NULL,
+  `price` float DEFAULT NULL,
+  `image` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `company_id` int(11) DEFAULT NULL,
+  `category_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`id`, `name`, `price`, `image`, `created_at`, `updated_at`, `company_id`, `category_id`) VALUES
+(97, 'galaxy 1', 1000000, 'default.jpg', '2022-09-22 18:30:06', NULL, 1, NULL),
+(98, 'galaxy 2', 1000000, 'default.jpg', '2022-09-22 18:30:14', NULL, 1, NULL),
+(99, 'galaxy 3', 1000000, 'default.jpg', '2022-09-22 18:30:18', NULL, 1, NULL),
+(100, 'galaxy 4', 1000000, 'default.jpg', '2022-09-22 18:30:23', NULL, 1, NULL),
+(101, 'galaxy 5', 1000000, 'default.jpg', '2022-09-22 18:30:27', NULL, 1, NULL),
+(102, 'note 5', 1000000, 'default.jpg', '2022-09-22 18:30:39', NULL, 1, NULL),
+(103, 'iphone 2', 2000000, NULL, '2022-09-22 18:33:33', '2022-11-08 23:06:31', 2, NULL),
+(104, 'iphone 2', 2000000, 'default.jpg', '2022-09-22 18:33:43', NULL, 2, NULL),
+(105, 'iphone 3', 3000000, 'default.jpg', '2022-09-22 18:33:49', NULL, 2, NULL),
+(106, 'iphone 4', 4000000, 'default.jpg', '2022-09-22 18:33:56', NULL, 2, NULL),
+(107, 'iphone 5', 5000000, 'default.jpg', '2022-09-22 18:34:02', NULL, 2, NULL),
+(108, 'lg 5', 5000000, 'default.jpg', '2022-09-22 18:34:43', NULL, 3, NULL),
+(109, 'lg 4', 4000000, 'default.jpg', '2022-09-22 18:34:50', NULL, 3, NULL),
+(110, 'lg 3', 3000000, 'default.jpg', '2022-09-22 18:35:03', NULL, 3, NULL),
+(114, 'dien thoai tomorola 1', 1000000, 'default.jpg', '2022-09-22 18:38:38', NULL, 6, NULL),
+(115, 'dien thoai tomorola 2', 2000000, 'default.jpg', '2022-09-22 18:38:48', NULL, 6, NULL),
+(116, 'dien thoai tomorola 3', 3000000, 'default.jpg', '2022-09-22 18:38:55', NULL, 6, NULL),
+(117, 'dien thoai tomorola 4', 4000000, 'default.jpg', '2022-09-22 18:39:01', NULL, 6, NULL),
+(118, 'may dao huyndai 4', 4000000, 'default.jpg', '2022-09-22 18:39:43', NULL, 5, NULL),
+(119, 'may dao huyndai 5', 5000000, 'default.jpg', '2022-09-22 18:39:54', NULL, 5, NULL),
+(120, 'may dao huyndai 6', 6000000, 'default.jpg', '2022-09-22 18:40:00', NULL, 5, NULL),
+(121, 'dien thoai sony', 6000000, 'default.jpg', '2022-09-22 18:40:40', NULL, 4, NULL),
+(122, 'may anh sony', 3000000, 'default.jpg', '2022-09-22 18:40:51', NULL, 4, NULL),
+(123, 'tv sony', 3000000, 'default.jpg', '2022-09-22 18:40:59', NULL, 4, NULL),
+(124, 'speaker sony', 1000000, 'default.jpg', '2022-09-22 18:41:09', NULL, 4, NULL),
+(125, 'speaker sony', 1000000, NULL, '2022-09-25 18:57:31', '2022-11-08 23:06:31', 2, NULL),
+(126, 'speaker sony', 1000000, NULL, '2022-09-25 19:02:25', '2022-11-08 23:06:31', 2, NULL),
+(127, 'speaker sony', 1000000, NULL, '2022-09-25 19:02:27', '2022-11-08 23:06:31', 2, NULL),
+(128, 'speaker sony', 1000000, NULL, '2022-09-25 19:02:28', '2022-11-08 23:06:31', 2, NULL),
+(129, 'speaker sony', 1000000, NULL, '2022-09-25 19:02:29', '2022-11-08 23:06:31', 2, NULL),
+(130, 'speaker sony', 1000000, NULL, '2022-09-25 19:02:30', '2022-11-08 23:06:31', 2, NULL),
+(131, '5555555', 126361000, NULL, '2022-09-25 19:02:57', '2022-11-08 23:06:31', 2, NULL),
+(132, 'iphone 2', 2000000, NULL, '2022-11-08 18:05:50', '2022-11-08 23:06:21', 1, NULL),
+(133, 'iphone 2', 2000000, NULL, '2022-11-08 18:31:24', '2022-11-08 23:06:21', 1, NULL),
+(134, 'iphone 3', 2000000, NULL, '2022-11-08 18:31:33', '2022-11-08 23:06:21', 1, NULL),
+(135, 'iphone 3', 2000000, NULL, '2022-11-08 18:31:48', '2022-11-08 23:06:21', 1, NULL),
+(136, 'iphone 3', 89, NULL, '2022-11-08 18:32:02', '2022-11-08 23:06:21', 1, NULL),
+(137, 'iphone 3', 89, NULL, '2022-11-08 18:32:37', '2022-11-08 23:06:21', 1, NULL),
+(138, 'iphone 3', 89, 'undefined', '2022-11-09 18:38:45', NULL, 1, NULL),
+(139, 'iphone 3', 89, 'undefined', '2022-11-09 18:39:11', NULL, 1, NULL),
+(140, 'iphone 14', 89, 'undefined', '2022-11-09 18:45:09', NULL, 1, NULL),
+(141, 'iphone 15', 89, 'uploads/products/avatar-1668004659467.jpeg', '2022-11-09 21:37:39', NULL, 1, NULL),
+(142, 'iphone 15', 89, 'uploads/products/avatar-1668005422076.jpeg', '2022-11-09 21:50:22', NULL, 1, NULL),
+(143, 'iphone 15', 89, 'uploads/products/avatar-1668005425183.jpeg', '2022-11-09 21:50:25', NULL, 1, NULL),
+(144, 'iphone 14', 89, 'uploads/products/avatar-1668006050263.jpeg', '2022-11-09 22:00:50', NULL, 1, NULL),
+(145, 'iphone 14', 89, 'uploads/products/avatar-1668069916190.jpeg', '2022-11-10 15:45:16', NULL, 1, NULL),
+(146, 'sam sung galaxy 14', 89000, 'uploads/products/avatar-1668165218463.jpeg', '2022-11-11 18:13:38', NULL, 1, NULL),
+(147, 'sam sung galaxy 14', 89000, 'uploads/products/avatar-1668165227957.jpeg', '2022-11-11 18:13:47', NULL, 1, NULL),
+(148, 'iphone 18', 15000000, '', '2022-11-14 21:44:48', '2022-11-15 15:15:35', 33, NULL),
+(149, 'sam sung galaxy s22', 22000000, 'uploads/products/avatar-1668437173119.png', '2022-11-14 21:46:13', NULL, 33, NULL),
+(150, 'sam sung galaxy s22', 22000000, 'uploads/products/avatar-1668437264454.png', '2022-11-14 21:47:44', NULL, 33, NULL),
+(151, 'iphone 13', 13000000, '', '2022-11-15 14:59:00', NULL, 33, NULL),
+(152, 'iphone 13', 13000000, 'uploads/products/avatar-1668500098436.jpeg', '2022-11-15 15:14:58', NULL, 33, NULL),
+(153, 'iphone 13', 13000000, 'uploads/products/avatar-1668668239556.jpeg', '2022-11-17 13:57:19', NULL, 42, NULL),
+(154, 'sam sung 22', 22000000, 'uploads/products/avatar-1668668261747.png', '2022-11-17 13:57:41', NULL, 42, NULL),
+(155, 'iphone 1', 1000000, 'uploads/products/avatar-1669028840379.jpeg', '2022-11-21 18:07:20', NULL, 42, NULL),
+(156, 'iphone 2', 200000, 'uploads/products/avatar-1669028858913.jpeg', '2022-11-21 18:07:38', NULL, 42, NULL),
+(157, 'iphone 3', 300000, 'uploads/products/avatar-1669028879480.jpeg', '2022-11-21 18:07:59', NULL, 42, NULL),
+(158, 'iphone 5', 300005, 'uploads/products/avatar-1669028894332.jpeg', '2022-11-21 18:08:14', NULL, 42, NULL),
+(159, 'iphone 10', 10000000, 'uploads/products/avatar-1669028910047.jpeg', '2022-11-21 18:08:30', NULL, 42, NULL),
+(160, 'iphone 11', 11000000, 'uploads/products/avatar-1669028924701.jpeg', '2022-11-21 18:08:44', NULL, 42, NULL),
+(161, 'Samsung Galaxy S8', 8000000, 'uploads/products/avatar-1669028952538.jpeg', '2022-11-21 18:09:12', NULL, 42, NULL),
+(162, 'Samsung Galaxy S9', 9000000, 'uploads/products/avatar-1669028977616.jpeg', '2022-11-21 18:09:37', NULL, 42, NULL),
+(163, 'Samsung Galaxy S10', 10000000, 'uploads/products/avatar-1669028994237.jpeg', '2022-11-21 18:09:54', NULL, 42, NULL),
+(164, 'Samsung Galaxy S11', 11000000, 'uploads/products/avatar-1669029007348.jpeg', '2022-11-21 18:10:07', NULL, 42, NULL),
+(165, 'Samsung Galaxy S20', 20000000, 'uploads/products/avatar-1669029021727.jpeg', '2022-11-21 18:10:21', NULL, 42, NULL),
+(166, 'Samsung Galaxy Note5', 5000000, 'uploads/products/avatar-1669029040640.jpeg', '2022-11-21 18:10:40', NULL, 42, NULL),
+(167, 'Samsung Galaxy Note7', 7000000, 'uploads/products/avatar-1669029052767.jpeg', '2022-11-21 18:10:52', NULL, 42, NULL),
+(168, 'Samsung Galaxy Note10', 10000000, 'uploads/products/avatar-1669029065551.jpeg', '2022-11-21 18:11:05', NULL, 42, NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `id` int(11) NOT NULL,
+  `name` varchar(55) CHARACTER SET latin1 NOT NULL,
+  `user_name` varchar(55) CHARACTER SET latin1 NOT NULL,
+  `password` varchar(255) CHARACTER SET latin1 NOT NULL,
+  `company_id` int(11) NOT NULL,
+  `email` varchar(55) CHARACTER SET latin1 DEFAULT NULL,
+  `phone_number` varchar(55) CHARACTER SET latin1 DEFAULT NULL,
+  `avatar` varchar(255) CHARACTER SET latin1 DEFAULT NULL,
+  `created_at` datetime DEFAULT CURRENT_TIMESTAMP,
+  `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`id`, `name`, `user_name`, `password`, `company_id`, `email`, `phone_number`, `avatar`, `created_at`, `updated_at`) VALUES
+(1, '', 'samsung1', '$2b$10$A5jgA5Czcex2XQq8Pe4oBO6R34f2LbY5pSr/HCkufTkkzu0.ACWna', 1, NULL, NULL, NULL, '2022-11-11 17:14:28', NULL),
+(2, '', 'samsung2', '000000', 1, NULL, NULL, NULL, '2022-11-11 17:23:24', NULL),
+(3, '', 'xiaomi7', '$2b$10$NLRtl2.kCfN3kr9MxDRna.8zRuZqTtHmVT81Fm6YpsXs6dFyu2jza', 9, NULL, NULL, NULL, '2022-11-14 14:49:51', NULL),
+(5, '', 'xiaomi9', '$2b$10$1YtMHlwL3X0NREZ/LBmj6Odir3PzWDUc2Gj.DpxbMFEgmUJkJvOV6', 11, NULL, NULL, NULL, '2022-11-14 14:56:39', NULL),
+(6, '', 'xiaomi11', '$2b$10$AcIj1PX.FiSssP8dz2S/W.qi7aLCPkU/LWYhQLo4i8/AdyfDQL7e2', 12, NULL, NULL, NULL, '2022-11-14 14:57:07', NULL),
+(8, '', 'xiaomi76126312312', '$2b$10$EE1OgZ7n.sdbWTN2y.M2buEOkTvhAcMwuhXnTcZDfmJJtyeX1.2ne', 14, NULL, NULL, NULL, '2022-11-14 14:59:13', NULL),
+(9, '', 'xiaomi67', '$2b$10$pkhTWLCj3i.Q1EFKux7HOeBLJzhhA443qAtgVwT3FIkAMcqZjjOUm', 15, NULL, NULL, NULL, '2022-11-14 15:00:46', NULL),
+(10, '', 'xiaomi673', '$2b$10$x5G2vscaC52rXYTL/DbtD.YpFOpXheqKpfnQeLRU0L2rn/cyBuhGq', 16, NULL, NULL, NULL, '2022-11-14 15:01:48', NULL),
+(11, '', 'xiaomi6733', '$2b$10$xGMKQdB2B2NJ09gtcqIsaO2fVQYQ/in3zuiGwNT9mngkozbAWE2W2', 17, NULL, NULL, NULL, '2022-11-14 15:02:08', NULL),
+(12, '', 'xiaomi67333', '$2b$10$eX5jskUiGIIkctSce4d.PugtGpZV7qFrbJfULkASmL4wbshglILY6', 18, NULL, NULL, NULL, '2022-11-14 15:02:54', NULL),
+(13, '', 'xiaomi673133', '$2b$10$oU/FZ.Z9ryJ2lxbWUDqN7e3nQvJJK0vpGmo3QXZPbWPvo7465TfiW', 19, NULL, NULL, NULL, '2022-11-14 15:07:18', NULL),
+(17, 'undefined', 'xiaomi6731787833', '$2b$10$6CpFH0kUoqpASMJvH6locejl.QExAfuUzlGX.jv7NrD4Qm17Nh88W', 23, 'undefined', 'undefined', 'undefined', '2022-11-14 15:43:23', NULL),
+(18, '', 'iphone14', '$2b$10$miu0pMWO0UsCen0id96fEeNGNtR.1AVxE9l.FiiOuO.0Z0HwV4uSi', 24, '', '', '', '2022-11-14 15:50:45', NULL),
+(21, '', 'admin_udo', '$2b$10$Whmnfhr0g0KANgniyylzj.m3oNO7ZUpoZoOz9pbaFK9na8pmL7Fp2', 25, '', '', '', '2022-11-14 17:17:14', NULL),
+(23, '', 'admin_udo2', '$2b$10$8l3bexGs0lPEazQbCZ52U.t3wKEWIPJbXGJn8BE3F.qXXxDljS/Py', 27, '', '', '', '2022-11-14 17:28:43', NULL),
+(24, '', 'admin_udo3', '$2b$10$lAzBMqJuagy7.72dMdFWAuiTCQSvrgl/4/GVOGFAZDwPvQcl8xiy2', 28, '', '', '', '2022-11-14 17:33:07', NULL),
+(26, '', 'udoadmin111', '000000', 30, '', '', 'uploads/users/avatar-1668433469256.jpeg', '2022-11-14 17:35:27', '2022-11-14 20:44:29'),
+(28, '', 'udoadmin10', '000000', 30, '', '', 'uploads/users/avatar-1668423214228.jpeg', '2022-11-14 17:45:44', '2022-11-14 17:53:34'),
+(29, '', 'Udo_admin10', '$2b$10$kNiqv1XCENfgW8yW3oI4LuCKWmoap4qEJ7LnodKLBi6MsPA29Kdmm', 31, '', '', '', '2022-11-14 20:49:17', NULL),
+(31, '', 'Udo_admin11', '$2b$10$mKToHQW8.fdcigPizSi6kehII6DEzLIgEPK8dex7LB1QnrL5s6A7K', 33, '', '', '', '2022-11-14 21:10:20', NULL),
+(32, '', 'udeo_admin12', '$2b$10$8/qXUhzvWoXNDxijEzuk.eu7XLlVRPspIXWdaherbPyu4QLmhBZGy', 30, '', '', 'uploads/users/avatar-1668435108918.jpeg', '2022-11-14 21:11:49', NULL),
+(33, '', 'Udo_admin14', '$2b$10$oj.36d0Y/COPSxM6gXOQMeMLA2GX7PiV6akC9wlF0n4zRcKhQtnnG', 34, '', '', '', '2022-11-14 21:19:13', NULL),
+(34, '', 'tuphuongdanh', '$2b$10$eoJm5vM1cxMHACavAfW2KOGwm9cyECnySHvECWMrYdI/MCCmZxHhO', 35, '', '', '', '2022-11-14 21:19:57', NULL),
+(35, '', 'danh12', '$2b$10$i81W8F2k8GXphzKuLwIAYuT5boJv/jbJ2EE8zylGHrEgKs1PcCLLq', 36, '', '', '', '2022-11-14 21:22:55', NULL),
+(36, '', '0349194952', '$2b$10$D3wVQ8m9TcHN4t3WEjnkGeTpD08pAWJKY/YiyEXlk0.qSiaP3LAOC', 37, '', '', '', '2022-11-14 21:25:35', NULL),
+(37, '', 'admin_udo7', '$2b$10$TOrH6Iw4qi/GOfR1u2J7fuygOkD3cUnrutdXSA/xYTIXp9KhVsQDC', 33, '', '', '', '2022-11-15 15:24:31', NULL),
+(39, '', 'admin9000', 'Thanchet021', 38, 'quocbao@gmail.com', '', '', '2022-11-15 16:25:15', '2022-11-16 19:46:51'),
+(40, '', 'ADMIN_88', 'undefined', 39, 'admin88@gmail.com', '', 'uploads/users/avatar-1668603125228.jpeg', '2022-11-16 19:48:51', '2022-11-16 21:11:04'),
+(41, '', 'ADMIN8888', '$2b$10$Xqh8yR8Bl4pYOYvTg6X8U.3/dNq3wcgZB5KMWQNofJrJDCmCy00Iy', 40, '', '', '', '2022-11-16 21:15:21', '2022-11-16 21:16:53'),
+(43, '', 'ADMIN888', '$2b$10$7hMCYJl1OYrmC.vneP7wceTCmlImrBC7UHFZBPJNqrzhABG2.nQLW', 42, '', '', '', '2022-11-16 21:18:30', '2022-11-16 21:22:03');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `auths`
+--
+ALTER TABLE `auths`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `codes`
+--
+ALTER TABLE `codes`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `companies`
+--
+ALTER TABLE `companies`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `customers`
+--
+ALTER TABLE `customers`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
+-- Indexes for table `order_items`
+--
+ALTER TABLE `order_items`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `order_id` (`order_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `company_id` (`company_id`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `user_name` (`user_name`),
+  ADD KEY `company_id` (`company_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `auths`
+--
+ALTER TABLE `auths`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=229;
+
+--
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `codes`
+--
+ALTER TABLE `codes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `companies`
+--
+ALTER TABLE `companies`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+
+--
+-- AUTO_INCREMENT for table `customers`
+--
+ALTER TABLE `customers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+
+--
+-- AUTO_INCREMENT for table `orders`
+--
+ALTER TABLE `orders`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=124;
+
+--
+-- AUTO_INCREMENT for table `order_items`
+--
+ALTER TABLE `order_items`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=245;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=169;
+
+--
+-- AUTO_INCREMENT for table `users`
+--
+ALTER TABLE `users`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `customers`
+--
+ALTER TABLE `customers`
+  ADD CONSTRAINT `customers_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_2` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+
+--
+-- Constraints for table `users`
+--
+ALTER TABLE `users`
+  ADD CONSTRAINT `users_ibfk_1` FOREIGN KEY (`company_id`) REFERENCES `companies` (`id`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

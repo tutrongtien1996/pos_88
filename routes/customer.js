@@ -14,8 +14,8 @@ CustomerRouters.post('/',Middleware.CheckToken, CustomerController.create)
 
 CustomerRouters.get('/:id',Middleware.CheckToken, CustomerController.getOne)
 
-CustomerRouters.delete('/delete/:id',Middleware.CheckToken, CustomerController.delete)
+CustomerRouters.delete('/:id',Middleware.CheckToken, CustomerController.delete)
 
-CustomerRouters.patch('/update/:id',Middleware.CheckToken, CustomerController.update)
+CustomerRouters.patch('/:id',Middleware.CheckToken, CustomerController.update)
 
 module.exports = {CustomerRouters}

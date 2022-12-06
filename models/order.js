@@ -15,13 +15,18 @@ class order {
         INNER JOIN companies ON companies.id = orders.company_id
         LEFT JOIN customers ON customers.id = orders.customer_id
         WHERE orders.company_id = '${req.auth_user.company_id}'`;
-        
+        let queryCount = `SELECT count(*) as count FROM orders WHERE orders.company_id = '${req.auth_user.company_id}'`;
+        mysqlConnection.query( checkQuery.Orders(queryCount, req), (err, result) => {
+            if(err) throw err;
+            req.count = result[0].count;
+        })
+
         mysqlConnection.query( checkQuery.Orders(query, req), callback)
     }
 
     create(order, callback){
         if(order.body){
-            let query = `INSERT INTO orders (company_id, customer_id, total, code, date)
+            let query = `INSERT INTO orders (company_id, customer_id, total, code)
             VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.code}')`;
             mysqlConnection.query(query, callback)
         }

@@ -70,7 +70,6 @@ class AuthControllerClass {
     }
 
     register (req, res){
-        console.log(req.body)
         var errors = validateRegisterRequest(req)
         if (Object.keys(errors).length > 0) {
             return ResponseFail(res, "Invalid input", errors)
@@ -83,12 +82,6 @@ class AuthControllerClass {
             phone_number: "",
             avatar: ""
         }
-        // let query = `SELECT * FROM codes WHERE code = '${user.code}' AND email = '${user.email}'`;
-        // mysqlConnection.query(query, (err, result) => {
-        //     if(err) throw err;
-        //     if(result.length == 0){
-        //         return ResponseFail(res, "Invalid input", errors)
-        //     }
         bcrypt.genSalt(saltRounds, function(err, salt) {
             bcrypt.hash(user.password, salt, function(err, hash) {
                 user.password = hash;
@@ -104,15 +97,11 @@ class AuthControllerClass {
                         } 
                         user.user_id = result.insertId;
                         req.auth_user = user;
-                        var token = GenerateStr(60);
-                        req.auth_user.token = token;
                         var data = {};
-                        userTokenModel.insertToken(req.auth_user, (err, results) => {
-                            if(err) throw (err);
-                        })
                         req.params.id = req.auth_user.user_id
                         UserModel.getOne(req, (err, userData) => {
                             if(err) throw err
+                            var token = GenerateStr(60);
                             data.name = userData[0].name;
                             data.id = userData[0].id;
                             data.user_name = userData[0].user_name;

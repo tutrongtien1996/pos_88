@@ -5,19 +5,23 @@ const {orderModel} = require('../models/order')
 
 class OrderControllerClass {
     getList (req, res){
-        orderModel.getList(req, (err, results) => {
+        orderModel.getList(req,  (err, results) => {
             if(err) throw err;
             if(results.length > 0){
-                return ResponseSuccess(res, "", results)
+                let data = {
+                    results: results,
+                    count: req.count
+                }
+                return ResponseSuccess(res, "succesful", data)
             }
-            return ResponseFail(res, "unsuccesful")
+            return ResponseSuccess(res, "succesful", [])
         })  
        
     }
     create (req, res){
         var order = {
             body: req.body,
-            company_id: req.auth_user
+            company_id: req.auth_user.company_id
         };
         orderModel.create(order, (err, result) => {
             if (err) throw err;

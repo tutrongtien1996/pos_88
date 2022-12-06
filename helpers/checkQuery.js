@@ -2,9 +2,7 @@
 
 class check {
     Orders(query, req){
-        if (req.query.page) {
-            query += " LIMIT " + req.query.limit + " OFFSET "+((req.query.page - 1) * req.query.limit)
-        }
+        
         if (req.query.product_id){
             query = `SELECT orders.id, orders.company_id, orders.customer_id,  orders.created_at, orders.updated_at,
             companies.name AS company_name, 
@@ -37,11 +35,11 @@ class check {
             query += ` AND customers.phone_number LIKE '%${req.query.phone_number}%'`
         }
     
-        if (req.query.startDate && req.query.endDate){
-            let startDate = req.query.startDate;
-            let endDate =  req.query.endDate + " 23:59:59";
-            query += ` AND orders.created_at >= '${startDate}' 
-            AND orders.created_at < '${endDate}'`
+        if (req.query.start_date && req.query.end_date){
+            let start_date = req.query.start_date;
+            let end_date =  req.query.end_date + " 23:59:59";
+            query += ` AND orders.created_at >= '${start_date}' 
+            AND orders.created_at < '${end_date}'`
         }
         if (req.query.larTotal){
             query += ` AND orders.total >= '${req.query.larTotal}'`
@@ -49,13 +47,18 @@ class check {
         if (req.query.lesTotal){
             query += ` AND orders.total <= '${req.query.lesTotal}'`
         }
+        if(query.includes("count(*)")){
+            return query;
+        }
+        query += '  ORDER BY orders.created_at DESC  '
+        if ((req.query.offset != "NaN") && req.query.limit) {
+            query += " LIMIT " + req.query.limit + " OFFSET "+ req.query.offset
+        }
         return query;
     }
 
     Customers(req, query){
-        if (req.query.page) {
-            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
-        }
+        
         if (req.query.name){
             query += ` AND customers.name LIKE '%${req.query.name}%'`
         }
@@ -68,20 +71,24 @@ class check {
         if (req.query.phone_number){
             query += ` AND customers.address LIKE '%${req.query.address}%'`
         }
-        if (req.query.startDate && req.query.endDate){
-            let startDate = req.query.startDate;
-            let endDate =  req.query.endDate + " 23:59:59";
-            query += ` AND customers.created_at >= '${startDate}' 
-            AND customers.created_at < '${endDate}'`
+        if (req.query.start_date && req.query.end_date){
+            let start_date = req.query.start_date;
+            let end_date =  req.query.end_date + " 23:59:59";
+            query += ` AND customers.created_at >= '${start_date}' 
+            AND customers.created_at < '${end_date}'`
         }
-       
+        if(query.includes("count(*)")){
+            return query;
+        }
+        query += '  ORDER BY customers.created_at DESC  '
+        if (req.query.offset && req.query.limit) {
+            query += " LIMIT " + req.query.limit + " OFFSET "+req.query.offset
+        }
         return query;
     }
 
     Products(req, query){
-        if (req.query.page) {
-            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
-        }
+        
         if (req.query.name){
             query += ` AND products.name LIKE '%${req.query.name}%'`
         }
@@ -91,17 +98,24 @@ class check {
         if (req.query.free){
             query += ` AND products.price IS NULL`
         }
-        if (req.query.startDate && req.query.endDate){
-            let startDate = req.query.startDate;
-            let endDate =  req.query.endDate + " 23:59:59";
-            query += ` AND products.created_at >= '${startDate}' 
-            AND products.created_at < '${endDate}'`
-        }
+        // if (req.query.start_date && req.query.end_date){
+        //     let start_date = req.query.start_date;
+        //     let end_date =  req.query.end_date + " 23:59:59";
+        //     query += ` AND products.created_at >= '${start_date}' 
+        //     AND products.created_at < '${end_date}'`
+        // }
         if (req.query.larPrice){
             query += ` AND products.price >= '${req.query.larPrice}'`
         }
         if (req.query.lesPrice){
             query += ` AND products.price <= '${req.query.lesPrice}'`
+        }
+        if(query.includes("count(*)")){
+            return query;
+        }
+        query += 'ORDER BY products.created_at DESC'
+        if (req.query.page) {
+            query += " LIMIT " + LIMIT + " OFFSET "+((req.query.page - 1) * LIMIT)
         }
         return query;
     }

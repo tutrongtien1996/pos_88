@@ -12,7 +12,11 @@ class product {
 
     getList(req, callback){
         let query = `SELECT * FROM products WHERE company_id = '${req.auth_user.company_id}'`;
-       
+        let queryCount = `SELECT count(*) as count FROM products WHERE products.company_id = '${req.auth_user.company_id}'`;
+        mysqlConnection.query( checkQuery.Products(req, queryCount), (err, result) => {
+            if(err) throw err;
+            req.count = result[0].count;
+        })
         mysqlConnection.query(checkQuery.Products(req, query), callback)
     }
 

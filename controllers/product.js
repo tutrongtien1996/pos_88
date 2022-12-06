@@ -13,7 +13,14 @@ class ProductControllerClass {
             if(err){
                 return ResponseFail(res, "unsuccesful")
             }
-            return ResponseSuccess(res, "successful", results)
+            if(results.length > 0){
+                let data = {
+                    results: results,
+                    count: req.count
+                }
+                return ResponseSuccess(res, "succesful", data)
+            }
+            return ResponseSuccess(res, "succesful", [])
         })
        
     }

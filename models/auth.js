@@ -1,10 +1,6 @@
 const {mysqlConnection} = require('../common/connect.js');
 
 class userToken {
-   id
-   user_name
-   token
-
    login(data, callback){
     let query = `SELECT * FROM users WHERE user_name = '${data.user_name}' LIMIT 1`
     mysqlConnection.query(query, callback)

@@ -11,9 +11,10 @@ class order {
     updated_at
 
     getList(req, callback){
-        let query =  `SELECT orders.*, companies.name AS company, customers.name AS customer, customers.phone_number FROM orders
+        let query =  `SELECT orders.*, companies.name AS company, customers.name AS customer, customers.phone_number,  payments.name AS payment_name  FROM orders
         INNER JOIN companies ON companies.id = orders.company_id
         LEFT JOIN customers ON customers.id = orders.customer_id
+        LEFT JOIN payments ON orders.payment_id = payments.id
         WHERE orders.company_id = '${req.auth_user.company_id}'`;
         let queryCount = `SELECT count(*) as count FROM orders WHERE orders.company_id = '${req.auth_user.company_id}'`;
         mysqlConnection.query( checkQuery.Orders(queryCount, req), (err, result) => {
@@ -26,8 +27,8 @@ class order {
 
     create(order, callback){
         if(order.body){
-            let query = `INSERT INTO orders (company_id, customer_id, total, code)
-            VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.code}')`;
+            let query = `INSERT INTO orders (company_id, customer_id, total, payment_id)
+            VALUES ('${order.company_id}', ${order.body.customer.id == "" ? null : order.body.customer.id}, '${order.body.total}', '${order.body.payment_id}')`;
             mysqlConnection.query(query, callback)
         }
     }

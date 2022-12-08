@@ -5,6 +5,7 @@ const {CustomerRouters} = require('./routes/customer.js');
 const {ProductRouters} = require('./routes/product.js');
 const {OrderRouters} = require('./routes/order.js');
 const {UserRoutes} = require('./routes/user.js');
+const {PaymentRouters} = require('./routes/payment.js');
 var cors = require('cors')
 
 
@@ -23,6 +24,7 @@ app.use('/admin/customers', CustomerRouters)
 app.use('/admin/products', ProductRouters)
 app.use('/admin/orders', OrderRouters)
 app.use('/admin/users', UserRoutes)
+app.use('/admin/payments', PaymentRouters)
 
 
 app.get('/', (req, res) => {

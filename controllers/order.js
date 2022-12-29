@@ -48,6 +48,7 @@ class OrderControllerClass {
             if(err) throw err;
             if(results.length > 0){
                 const order = setOrder(results);
+                console.log(order)
                 return ResponseSuccess(res, "", order)
             }
             return ResponseFail(res, "unsuccesful")
@@ -57,12 +58,11 @@ class OrderControllerClass {
     delete (req, res) {
         const input = getID(req.params.id, req.auth_user.company_id);
         orderModel.delete(input, (err, data) => {
-            if (err) throw err;
-            orderModel.deleteOrderItems(input, (err, result) => {
-            if(err) throw err
-            return ResponseSuccess(res, "", result)
-            })  
-            return ResponseFail(res, "unsuccesful")    
+            if (err)  return ResponseFail(res, "unsuccesful") ;
+            return orderModel.deleteOrderItems(input, (err, result) => {
+                if(err) throw err
+                return ResponseSuccess(res, "succesful", true)
+            })       
         })
     }
 

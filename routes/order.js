@@ -14,8 +14,8 @@ OrderRouters.post('/', Middleware.CheckToken, OrderController.create)
 
 OrderRouters.get('/:id', Middleware.CheckToken, OrderController.getOne)
 
-OrderRouters.delete('/delete/:id', Middleware.CheckToken, OrderController.delete)
+OrderRouters.delete('/:id', Middleware.CheckToken, OrderController.delete)
 
-OrderRouters.patch('/update/:id', Middleware.CheckToken, OrderController.update)
+OrderRouters.patch('/:id', Middleware.CheckToken, OrderController.update)
 
 module.exports = {OrderRouters}

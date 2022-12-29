@@ -44,11 +44,12 @@ class order {
     }
 
     getOne (input, callback) {
-        let query = `SELECT orders.id, orders.company_id, orders.customer_id, orders.total, orders.created_at, orders.updated_at,
+        let query = `SELECT orders.id, orders.status, orders.payment_id, orders.company_id, orders.customer_id, orders.total, orders.created_at, orders.updated_at,
         companies.name AS company_name, companies.email AS company_email, companies.phone_number AS company_phoneNumber, companies.logo AS company_logo,
         customers.name AS customer_name, customers.phone_number AS cutomer_phoneNumber, customers.address AS customer_address, 
         order_items.id AS orderItiems_id, order_items.quantity AS orderItiems_quantity, order_items.price AS orderItiems_price, 
-        products.id AS product_id, products.name AS product_name, products.price AS product_price, products.image AS product_image
+        products.id AS product_id, products.name AS product_name, products.price AS product_price, products.image AS product_image,
+        payments.id AS payment_id, payments.name AS payment_name
             
         FROM order_items
         INNER JOIN orders 
@@ -59,6 +60,8 @@ class order {
         ON companies.id = orders.company_id
         LEFT JOIN products
         ON order_items.product_id = products.id
+        LEFT JOIN payments
+        ON payments.id = orders.payment_id
         WHERE orders.id = '${input.id}' AND orders.company_id = '${input.company_id}'`
 
         mysqlConnection.query(query, callback)

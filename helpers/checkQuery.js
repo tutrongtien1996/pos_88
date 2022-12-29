@@ -51,8 +51,11 @@ class check {
             return query;
         }
         query += '  ORDER BY orders.created_at DESC  '
-        if ((req.query.offset != "NaN") && req.query.limit) {
+        if ((req.query.offset >= 0) && (req.query.limit > 0)) {
             query += " LIMIT " + req.query.limit + " OFFSET "+ req.query.offset
+        }
+        if ((req.query.offset < 0) || (req.query.limit <= 0)) {
+            query += " LIMIT " + 0 + " OFFSET "+ 0
         }
         return query;
     }

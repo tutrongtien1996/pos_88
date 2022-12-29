@@ -93,6 +93,10 @@ function setOrder(results){
         phone_number: results[0].cutomer_phoneNumber,
         address: results[0].customer_address
     };
+    var payment = {
+        id: results[0].payment_id,
+        name: results[0].payment_name
+    }
     results.forEach(item => {
         items.push({
             name: item.product_name,
@@ -106,6 +110,8 @@ function setOrder(results){
         customer: customer,
         company: company,
         total: results[0].total,
+        status: results[0].status,
+        payment_method: payment,
         items: items,
         created_at: results[0].created_at,
         updated_at: results[0].updated_at

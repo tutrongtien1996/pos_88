@@ -24,8 +24,20 @@ var storage = multer.diskStorage({
       req.fileName = file.filename;
     },
 });
+
+var company = multer.diskStorage({
+  destination: function(req, file, cb) {
+    cb(null, 'uploads/companies');
+  },
+  filename: function(req, file, cb) {
+    const ext = file.mimetype.split("/")[1];
+    cb(null, `${file.fieldname}-${Date.now()}.${ext}`);
+    req.fileName = file.filename;
+  },
+});
   var uploadProduct = multer({ storage: storage });
   var uploadUser = multer({ storage: user });
+  var uploadCompany = multer({ storage: company });
 
-  module.exports = {uploadProduct, uploadUser}
+  module.exports = {uploadProduct, uploadUser, uploadCompany}
   

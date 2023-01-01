@@ -74,7 +74,11 @@ class check {
         if (req.query.phone_number){
             query += ` AND customers.address LIKE '%${req.query.address}%'`
         }
-        if (req.query.start_date && req.query.end_date){
+        if((req.query.start_date == 'all') && req.query.end_date){
+            let end_date =  req.query.end_date + " 23:59:59";
+            query += ` AND customers.created_at < '${end_date}'`
+        }
+        if ((req.query.start_date !== 'all') && req.query.end_date){
             let start_date = req.query.start_date;
             let end_date =  req.query.end_date + " 23:59:59";
             query += ` AND customers.created_at >= '${start_date}' 

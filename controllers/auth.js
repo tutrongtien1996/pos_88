@@ -34,10 +34,17 @@ class AuthControllerClass {
                             id: results[0].id,
                             user_name : results[0].user_name,
                             token: token,
-                            company_id : results[0].company_id,
                             email : results[0].email,
                             phone_number : results[0].phone_number,
                             avatar: results[0].avatar,
+                            company: {
+                                id: results[0].company_id,
+                                name: results[0].company_name,
+                                email: results[0].company_email,
+                                phone_number: results[0].company_phone,
+                                address: results[0].company_address,
+                                logo: results[0].company_logo
+                            },
                             created_at: results[0].created_at,
                             updated_at: results[0].updated_at
                         }

@@ -2,7 +2,10 @@ const {mysqlConnection} = require('../common/connect.js');
 
 class userToken {
    login(data, callback){
-    let query = `SELECT * FROM users WHERE user_name = '${data.user_name}' LIMIT 1`
+    let query = `SELECT users.*, companies.name AS company_name, companies.logo AS company_logo, companies.phone_number AS company_phone, companies.email AS company_email, companies.address AS company_address FROM users
+     LEFT JOIN companies
+     ON companies.id = users.company_id
+     WHERE user_name = '${data.user_name}' LIMIT 1`
     mysqlConnection.query(query, callback)
    }
 

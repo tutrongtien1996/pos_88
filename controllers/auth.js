@@ -48,6 +48,7 @@ class AuthControllerClass {
                             created_at: results[0].created_at,
                             updated_at: results[0].updated_at
                         }
+                
                         //set token trong bang auths
                         var inputAuth = {
                             token: token,
@@ -104,31 +105,39 @@ class AuthControllerClass {
                         } 
                         user.user_id = result.insertId;
                         req.auth_user = user;
-                        var data = {};
                         req.params.id = req.auth_user.user_id
-                        UserModel.getOne(req, (err, userData) => {
+                        
+                        userTokenModel.login(user, (err, results) => {
                             if(err) throw err
                             var token = GenerateStr(60);
-                            data.name = userData[0].name;
-                            data.id = userData[0].id;
-                            data.user_name = userData[0].user_name;
-                            data.token = token;
-                            data.company_id = userData[0].company_id;
-                            data.email = userData[0].email;
-                            data.phone_number = userData[0].phone_number;
-                            data.avatar = userData[0].avatar;
-                            data.created_at = userData[0].created_at;
-                            data.updated_at = userData[0].updated_at
+                            let data = {
+                                name : results[0].name,
+                                id: results[0].id,
+                                user_name : results[0].user_name,
+                                token: token,
+                                email : results[0].email,
+                                phone_number : results[0].phone_number,
+                                avatar: results[0].avatar,
+                                company: {
+                                    id: results[0].company_id,
+                                    name: results[0].company_name,
+                                    email: results[0].company_email,
+                                    phone_number: results[0].company_phone,
+                                    address: results[0].company_address,
+                                    logo: results[0].company_logo
+                                },
+                                created_at: results[0].created_at,
+                                updated_at: results[0].updated_at
+                            }
                             var inputAuth = {
                                 token: token,
-                                user_id: userData[0].id
+                                user_id: results[0].id,
                             }
                             userTokenModel.insertToken(inputAuth, (err, results) => {
                                 if(err) return ResponseFail(res, "Not create token", null)
                                 return ResponseSuccess(res, "Register success successful", data)
                             })  
-                        })
-                        
+                        }) 
                     })
                 }) 
             });

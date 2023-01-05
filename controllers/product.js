@@ -78,6 +78,7 @@ class ProductControllerClass {
         const input = getID(req.params.id, req.auth_user.company_id)
         try {
             let data = await productModel.getOne(input)
+            
             if(req.file){
                 req.body.image = req.file.path
             }
@@ -93,7 +94,7 @@ class ProductControllerClass {
                     }
                     return ResponseFail(res, "khong the update", null);
                 } 
-                if(data.image){
+                if(data.image && (data.image.charAt(8) != "s")){
                     fs.unlink(data.image,  function (err, data) {
                         if (err) throw err;
                     });

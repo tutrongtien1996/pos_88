@@ -99,7 +99,7 @@ class check {
         if (req.query.name){
             query += ` AND products.name LIKE '%${req.query.name}%'`
         }
-        if (req.query.phone_number){
+        if (req.query.price){
             query += ` AND products.price = '${req.query.price}'`
         }
         if (req.query.free){

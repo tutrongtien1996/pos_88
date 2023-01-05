@@ -2,7 +2,6 @@ const express = require('express');
 
 const {ProductController} = require('../controllers/product.js');
 const { Middleware } = require('../helpers/middleware.js');
-const {validate} = require('../validate/product')
 const {uploadProduct} = require('../common/fileupload')
 
 

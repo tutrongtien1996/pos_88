@@ -5,6 +5,7 @@ class UserModelClass {
         let query = `SELECT * FROM users WHERE company_id = '${req.auth_user.company_id}'`;
         mysqlConnection.query(query, callback)
     }
+    
 
 
     getOne (req, callback){

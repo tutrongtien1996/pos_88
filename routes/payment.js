@@ -9,6 +9,7 @@ const PaymentRouters = express.Router();
 
 
 PaymentRouters.get('/', Middleware.CheckToken, PaymentController.getList)
+PaymentRouters.post('/methods', Middleware.CheckToken, PaymentController.createList)
 
 // PaymentRouters.get('/:id', Middleware.CheckToken, PaymentController.getOne)
 

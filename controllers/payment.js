@@ -18,18 +18,15 @@ class PaymentControllerClass {
         })
     }
 
-    // getOne (req, res) {
-    //     const input = getID(req.params.id, req.auth_user.company_id);
-    //     PaymentModel.getOne(input, (err, result) => {
-    //         if(err){
-    //             return ResponseFail(res, "unsuccesful")
-    //         }
-    //         if(result.length > 0){
-    //             return ResponseSuccess(res, "successful", result[0])
-    //         }
-    //         return ResponseFail(res, "unsuccessful")
-    //     })
-    // }
+    createList (req, res){
+        req.body.company_id = req.auth_user.company_id;
+        paymentModel.createList(req.body, async (err, results) => {
+            if(err){
+                return ResponseFail(res, "unsuccesful")  
+            }
+            return ResponseSuccess(res, "succesful", results)    
+        })   
+    } 
 
     
 }
